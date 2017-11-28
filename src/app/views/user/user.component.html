@@ -1,0 +1,67 @@
+<lmt-toolbar></lmt-toolbar>
+
+<section *ngIf="user">
+    <aside class="bg">
+        <h3>{{ user.uname }}</h3>
+        <button mat-button matTooltip="Click to copy the user id to the clipboard" (click)="electron.copyToClipboard(user.uid)">{{ user.uid }}</button>
+        <img [src]="user.face" [class.female]="user.sex == 0" [class.male]="user.sex == 1">
+
+        <div class="statistics">
+            <div class="statistic">
+                <div class="label">
+                    level
+                </div>
+                <div class="value">
+                    {{ user.level | number }}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="label">
+                    country
+                </div>
+                <div class="value">
+                    {{ user.countryCode }}
+                </div>
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="electron.openFollowingWindow(user.uid, user.uname)">
+            following {{ user.following_count | number }}
+        </button>
+
+        <button mat-raised-button color="primary" (click)="electron.openFansWindow(user.uid, user.uname)">
+            {{ user.fans_count | number }} fans
+        </button>
+
+        <div class="buttons">
+            <button mat-icon-button (click)="handleFavourite()" color="{{ electron.isFavourite(user.uid) ? 'primary' : '' }}">
+                <mat-icon>favorite</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="handleLike()" color="{{ electron.isLiked(user.uid) ? 'primary' : '' }}">
+                <mat-icon>thumb_up</mat-icon>
+            </button>
+        </div>
+
+        <div class="statistic" *ngIf="user.lastViewed != -1">
+            <div class="label">
+                last viewed
+            </div>
+            <div class="value">
+                {{ user.lastViewed | amTimeAgo }}
+            </div>
+        </div>
+    </aside>
+    <main>
+        <lmt-user-video *ngFor="let replay of replays" [replay]="replay" [isNew]="user.lastViewed"></lmt-user-video>
+        <div class="error" *ngIf="replays && replays.length == 0">No replays were found for this user</div>
+        <div class="loading" *ngIf="!replays && !replayError">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div class="error" *ngIf="replayError">{{ replayError }}</div>
+    </main>
+</section>
+<div *ngIf="!user && !userError" class="loading">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="error" *ngIf="userError">{{ userError }}</div>

@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+@mixin lmt-custom($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    $bg: map-get($background, status-bar);
+    $bgdialog: map-get($background, dialog);
+
+    $fgdialog: map-get($foreground, base);
+
+    body {
+        background-color: $bg;
+    }
+
+    .bg {
+        background-color: $bgdialog;
+        color: $fgdialog;
+        @include mat-elevation(2);
+    }
+}
+
+@include mat-core();
+
+$lmt-primary: mat-palette($mat-indigo);
+$lmt-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$lmt-warn: mat-palette($mat-red);
+
+$lmt-theme: mat-light-theme($lmt-primary, $lmt-accent, $lmt-warn);
+
+@include angular-material-theme($lmt-theme);
+@include lmt-custom($lmt-theme);
+
+body {
+    margin: 0;
+}

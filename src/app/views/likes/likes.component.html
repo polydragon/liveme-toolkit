@@ -1,0 +1,20 @@
+<lmt-toolbar></lmt-toolbar>
+<input type="filter" [(ngModel)]="filter" placeholder="Filter users">
+<main>
+    <div class="cardList">
+        <mat-card *ngFor="let like of electron.userManager.getLikes()" [hidden]="filter && !like[1].uname.toLowerCase().startsWith(filter.toLowerCase())">
+            <aside>
+                <img [class.female]="like[1].sex == 0" [class.male]="like[1].sex == 1" src="{{ like[1].face }}">
+                <div class="name">
+                    <span>{{ like[1].uname }}</span>
+                    <small *ngIf="electron.lastViewed(like[0]) != -1">last viewed {{ electron.lastViewed(like[0]) | amTimeAgo }}</small>
+                </div>
+            </aside>
+            <main>
+                <button mat-button (click)="electron.openProfile(like[0])">Replays</button>
+                <button mat-button (click)="electron.openFollowingWindow(like[0], like[1].uname)">Following</button>
+                <button mat-button (click)="electron.openFansWindow(like[0], like[1].uname)">Fans</button>
+            </main>
+        </mat-card>
+    </div>
+</main>

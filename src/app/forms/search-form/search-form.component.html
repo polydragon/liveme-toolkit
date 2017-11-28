@@ -1,0 +1,13 @@
+<header class="bg">
+    <form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-select placeholder="Search Type" [(ngModel)]="searchType" name="searchType" required>
+                <mat-option *ngFor="let term of searchTypes" [value]="term">{{ term }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 400px;">
+            <input matInput placeholder="Search Query" name="searchTerm" [(ngModel)]="searchTerm" required>
+        </mat-form-field>
+        <button mat-button type="submit">SEARCH</button>
+    </form>
+</header>

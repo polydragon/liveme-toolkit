@@ -1,0 +1,5 @@
+<lmt-toolbar></lmt-toolbar>
+<lmt-search-form (onSubmitted)="searchSubmitted($event)"></lmt-search-form>
+<main *ngIf="!error && replay != null">
+    <lmt-hashtag-video [replay]="replay"></lmt-hashtag-video>
+</main>

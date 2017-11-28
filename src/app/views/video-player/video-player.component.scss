@@ -1,0 +1,66 @@
+:host {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+
+    > main {
+        flex-grow: 1;
+        flex-shrink: 1;
+        border-right: 1px solid rgba(black, 0.15);
+
+        > video {
+            height: 100%;
+            width: 100%;
+            background-color: black;
+        }
+    }
+
+    > aside.loading, > aside.error {
+        overflow: hidden;
+        position: relative;
+
+        div, span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-select: none;
+        }
+    }
+
+    > aside {
+        width: 300px;
+        min-width: 300px;
+        overflow-y: scroll;
+        padding: 5px;
+
+        mat-card {
+            padding: 4px;
+            margin-bottom: 5px;
+
+            div.infobar {
+                display: flex;
+                flex-flow: 1;
+                font-weight: bold;
+
+                span.username {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                }
+
+                span.time {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                }
+            }
+
+            span.message {
+                display: block;
+                overflow-wrap: break-word;
+            }
+        }
+    }
+}

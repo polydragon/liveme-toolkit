@@ -1,0 +1,96 @@
+:host {
+    .loading, .error {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    section {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+        height: calc(100vh - 64px);
+        width: 100vw;
+        overflow: hidden;
+
+        aside {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 200px;
+            padding: 10px;
+            box-sizing: border-box;
+
+            display: flex;
+            flex-flow: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            
+            h3 {
+                display: block;
+                text-align: center;
+                margin: 0;
+            }
+
+            img {
+                width: 150px;
+                height: 150px;
+                margin: 10px 0;
+                margin-bottom: 0;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 4px solid grey;
+            }
+
+            img.female {
+                border-color: pink;
+            }
+
+            img.male {
+                border-color: skyblue;
+            }
+
+            > .statistics {
+                margin-bottom: 5px;
+                display: flex;
+                flex-flow: row;
+                flex-wrap: nowrap;
+            }
+
+            .statistic {
+                display: block;
+                padding: 10px;
+
+                .label {
+                    display: block;
+                    font-size: 10pt;
+                    text-align: center;
+                }
+
+                .value {
+                    display: block;
+                    text-align: center;
+                    font-size: 14pt;
+                }
+            }
+            
+            > button {
+                margin-top: 5px;
+            }
+
+            div.buttons {
+                margin-top: 15px;
+            }
+        }
+
+        main {
+            flex-grow: 1;
+            flex-shrink: 1;
+            position: relative;
+            padding: 10px;
+            padding-bottom: 0px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    }
+}

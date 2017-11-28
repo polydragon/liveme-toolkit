@@ -1,0 +1,23 @@
+<input type="filter" [(ngModel)]="filter" placeholder="Filter users">
+<main>
+    <div class="cardList" *ngIf="fans">
+        <mat-card *ngFor="let fan of fans" [hidden]="filter && !fan.uname.toLowerCase().startsWith(filter.toLowerCase())">
+            <aside>
+                <img [class.girl]="fan.sex == 0" [class.boy]="fan.sex == 1" src="{{ fan.face }}">
+                <div class="name">
+                    <span>{{ fan.uname }}</span>
+                    <small *ngIf="electron.lastViewed(fan.uid) != -1">last viewed {{ electron.lastViewed(fan.uid) | amTimeAgo }}</small>
+                </div>
+            </aside>
+            <main>
+                <button mat-button (click)="electron.openProfile(fan.uid)">Replays</button>
+                <button mat-button (click)="electron.openFollowingWindow(fan.uid, fan.uname)">Following</button>
+                <button mat-button (click)="electron.openFansWindow(fan.uid, fan.uname)">Fans</button>
+            </main>
+        </mat-card>
+    </div>
+    <div class="error" *ngIf="fans && fans.length == 0">This user has no fans</div>
+    <div class="loading" *ngIf="!fans">
+        <mat-spinner></mat-spinner>
+    </div>
+</main>
