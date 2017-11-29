@@ -3,7 +3,7 @@
     <div class="cardList" *ngIf="followers">
         <mat-card *ngFor="let follower of followers" [hidden]="filter && !follower.uname.toLowerCase().startsWith(filter.toLowerCase())">
             <aside>
-                <img [class.girl]="follower.sex == 0" [class.boy]="follower.sex == 1" src="{{ follower.face }}">
+                <img [class.female]="follower.sex == 0" [class.male]="follower.sex == 1" src="{{ follower.face }}">
                 <div class="name">
                     <span>{{ follower.uname }}</span>
                     <small *ngIf="electron.lastViewed(follower.uid) != -1">last viewed {{ electron.lastViewed(follower.uid) | amTimeAgo }}</small>

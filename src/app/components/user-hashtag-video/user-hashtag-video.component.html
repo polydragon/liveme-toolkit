@@ -1,6 +1,6 @@
 <mat-card *ngIf="replay">
     <section class="buttons">
-        <img [class.girl]="replay.sex == 0" [class.boy]="replay.sex == 1" src="{{ replay.uface }}">
+        <img [class.female]="replay.sex == 0" [class.male]="replay.sex == 1" src="{{ replay.uface }}">
         <div class="name">
             <span>{{ replay.uname }}</span>
             <small *ngIf="electron.lastViewed(replay.userid) != -1">last viewed {{ electron.lastViewed(replay.userid) | amTimeAgo }}</small>

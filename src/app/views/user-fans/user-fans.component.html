@@ -3,7 +3,7 @@
     <div class="cardList" *ngIf="fans">
         <mat-card *ngFor="let fan of fans" [hidden]="filter && !fan.uname.toLowerCase().startsWith(filter.toLowerCase())">
             <aside>
-                <img [class.girl]="fan.sex == 0" [class.boy]="fan.sex == 1" src="{{ fan.face }}">
+                <img [class.female]="fan.sex == 0" [class.male]="fan.sex == 1" src="{{ fan.face }}">
                 <div class="name">
                     <span>{{ fan.uname }}</span>
                     <small *ngIf="electron.lastViewed(fan.uid) != -1">last viewed {{ electron.lastViewed(fan.uid) | amTimeAgo }}</small>
