@@ -20,12 +20,6 @@ if (serve) {
 
 function initMainListener() {
     ipcMain.on('ELECTRON_BRIDGE_HOST', (event: any, msg: any) => {
-        console.log('msg received', msg);
-
-        if (msg === 'ping') {
-            event.sender.send('ELECTRON_BRIDGE_CLIENT', 'pong');
-        }
-
         if (msg.event) {
             switch (msg.event) {
                 case 'openProfile':
@@ -54,6 +48,7 @@ function createWindow() {
     });
 
     windows.main.loadURL(`file://${__dirname}/index.html`);
+    windows.main.setMenu(null);
 
     if (serve) {
         windows.main.webContents.openDevTools();
@@ -97,7 +92,7 @@ function openFollowingWindow(uid: string, username: string) {
         minWidth: 320,
         height: 720,
         frame: true,
-        show: false,
+        //show: false,
         webPreferences: {
             webSecurity: false
         }
@@ -106,9 +101,9 @@ function openFollowingWindow(uid: string, username: string) {
     window.setMenu(null);
     window.loadURL(`file://${__dirname}/index.html#/u/${uid}/following?name=${username}`);
 
-    window.once('ready-to-show', () => {
-        window.show();
-    });
+    //window.once('ready-to-show', () => {
+    //    window.show();
+    //});
 }
 
 function openFansWindow(uid: string, username: string) {
@@ -117,7 +112,7 @@ function openFansWindow(uid: string, username: string) {
         minWidth: 320,
         height: 720,
         frame: true,
-        show: false,
+        //show: false,
         webPreferences: {
             webSecurity: false
         }
@@ -126,9 +121,9 @@ function openFansWindow(uid: string, username: string) {
     window.setMenu(null);
     window.loadURL(`file://${__dirname}/index.html#/u/${uid}/fans?name=${username}`);
 
-    window.once('ready-to-show', () => {
-        window.show();
-    });
+    //window.once('ready-to-show', () => {
+    //    window.show();
+    //});
 }
 
 function openVideoPlayer(video: string, chat: string, startTime: string) {
@@ -143,7 +138,7 @@ function openVideoPlayer(video: string, chat: string, startTime: string) {
             width: 709,
             height: 720,
             frame: true,
-            show: false,
+            //show: false,
             webPreferences: {
                 webSecurity: false
             }
@@ -152,9 +147,9 @@ function openVideoPlayer(video: string, chat: string, startTime: string) {
         windows.video.setMenu(null);
         windows.video.loadURL(`file://${__dirname}/index.html#/video?url=${video}&chat=${chat}&start=${startTime}`);
 
-        windows.video.once('ready-to-show', () => {
-            windows.video.show();
-        });
+        //windows.video.once('ready-to-show', () => {
+        //    windows.video.show();
+        //});
 
         windows.video.on('closed', () => {
             windows.video = null;

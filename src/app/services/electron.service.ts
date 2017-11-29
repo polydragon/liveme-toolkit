@@ -154,7 +154,7 @@ export class ElectronService {
 
     get electron() {
         if (!this._electron) {
-            this._electron = (<any>window).require('electron'); //window ? window['electron'] : null;
+            this._electron = (<any>window).require('electron');
         }
 
         return this._electron;
