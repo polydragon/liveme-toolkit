@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 
 import { UserManager } from './user-manager';
+import { Settings } from './settings';
 
 let serve;
 const args = process.argv.slice(1);
@@ -14,8 +15,7 @@ let windows: any = {
 }
 
 if (serve) {
-    require('electron-reload')(__dirname, {
-    });
+    require('electron-reload')(__dirname, { });
 }
 
 function initMainListener() {
@@ -175,4 +175,8 @@ function initFs() {
     let usermanager = new UserManager();
     usermanager.load();
     (<any>global).UserManager = usermanager;
+
+    let settings = new Settings();
+    settings.load();
+    (<any>global).Settings = settings;
 }

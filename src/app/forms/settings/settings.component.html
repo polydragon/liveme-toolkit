@@ -1,0 +1,59 @@
+<mat-dialog-content>
+    <section>
+        <h2>Downloads</h2>
+        <div>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Folder to save downloads in" name="downloadPath" [(ngModel)]="downloadPath">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <label class="fullsize">Enable download history</label>
+            <mat-slide-toggle name="downloadHistory" [(ngModel)]="downloadHistory"></mat-slide-toggle>
+        </div>
+        <div>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="FFMPEG path" name="downloadFfmpeg" [(ngModel)]="downloadFfmpeg">
+            </mat-form-field>
+        </div>
+    </section>
+    <section>
+        <h2>Filenames</h2>
+        <div class="flex">
+            <label class="fullsize">Use custom filenames</label>
+            <mat-slide-toggle name="useTemplate" [(ngModel)]="useTemplate"></mat-slide-toggle>
+        </div>
+        <div [hidden]="!useTemplate">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Files will be saved using this template" name="downloadtemplate" [(ngModel)]="downloadtemplate">
+            </mat-form-field>
+            <span>You can use these variables:</span>
+            <table>
+                <tr>
+                    <th>%%userid%%</th>
+                    <td>User ID</td>
+                </tr>
+                <tr>
+                    <th>%%username%%</th>
+                    <td>Username</td>
+                </tr>
+                <tr>
+                    <th>%%videoid%%</th>
+                    <td>Video ID</td>
+                </tr>
+                <tr>
+                    <th>%%videotitle%%</th>
+                    <td>Video Title</td>
+                </tr>
+                <tr>
+                    <th>%%videotime%%</th>
+                    <td>Video Start Time</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button>CHECK FFMPEG</button>
+    <button mat-button>SAVE</button>
+    <button mat-button color="warn" mat-dialog-close>CLOSE</button>
+</mat-dialog-actions>

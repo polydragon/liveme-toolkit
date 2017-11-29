@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ElectronService } from '../../services/electron.service';
+import { SettingsComponent } from 'app/forms/settings/settings.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
     selector: 'lmt-toolbar',
@@ -8,6 +10,11 @@ import { ElectronService } from '../../services/electron.service';
 })
 export class ToolbarComponent {
     constructor(
-        public electron: ElectronService
+        public electron: ElectronService,
+        private dialog: MatDialog
     ) { }
+
+    openSettings() {
+        this.dialog.open(SettingsComponent);
+    }
 }

@@ -5,9 +5,6 @@ import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import * as Electron from 'electron';
 
-const ELECTRON_HOST = 'ELECTRON_BRIDGE_HOST';
-const ELECTRON_CLIENT = 'ELECTRON_BRIDGE_CLIENT';
-
 @Injectable()
 export class ElectronService {
     private _electron: Electron.AllElectron = null;
@@ -18,7 +15,7 @@ export class ElectronService {
         private zone: NgZone
     ) {
         if (this.electron) {
-            this.electron.ipcRenderer.on(ELECTRON_CLIENT, (event, msg) => {
+            this.electron.ipcRenderer.on('ELECTRON_BRIDGE_CLIENT', (event, msg) => {
                 this.zone.run(() => {
                     if (msg.event && msg.event == 'openProfile') {
                         return this.router.navigateByUrl(`/u/${msg.uid}`);
@@ -33,6 +30,12 @@ export class ElectronService {
     get userManager() {
         return this.zone.run(() => {
             return this.electron.remote.getGlobal('UserManager');
+        });
+    }
+
+    get settings() {
+        return this.zone.run(() => {
+            return this.electron.remote.getGlobal('Settings');
         });
     }
 
@@ -112,7 +115,7 @@ export class ElectronService {
 
     send(data: any): void {
         if (this.ipcRenderer) {
-            this.ipcRenderer.send(ELECTRON_HOST, data);
+            this.ipcRenderer.send('ELECTRON_BRIDGE_HOST', data);
         }
     }
 

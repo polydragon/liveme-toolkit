@@ -1,0 +1,37 @@
+:host {
+    display: block;
+    width: 500px;
+
+    mat-dialog-content {
+        section {
+            display: flex;
+            flex-flow: column;
+            flex-wrap: nowrap;
+
+            .full-width {
+                width: 100%;
+            }
+
+            div {
+                padding: 5px 0;
+            }
+
+            div.flex {
+                display: flex;
+                flex-flow: row;
+                flex-wrap: nowrap;
+
+                .fullsize {
+                    flex: 1 1 auto;
+                    justify-content: center;
+                    line-height: 12px;
+                }
+            }
+        }
+    }
+}
+
+th {
+    text-align: left;
+    padding-right: 10px;
+}

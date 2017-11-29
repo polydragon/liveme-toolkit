@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ElectronService } from './services/electron.service';
@@ -23,6 +23,7 @@ import { SearchComponent } from './views/search/search.component';
 import { SearchFormComponent } from './forms/search-form/search-form.component';
 import { FavouritesComponent } from './views/favourites/favourites.component';
 import { LikesComponent } from './views/likes/likes.component';
+import { SettingsComponent } from './forms/settings/settings.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { LikesComponent } from './views/likes/likes.component';
         SearchComponent,
         SearchFormComponent,
         FavouritesComponent,
-        LikesComponent
+        LikesComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
@@ -49,7 +51,7 @@ import { LikesComponent } from './views/likes/likes.component';
         MomentModule,
 
         BrowserAnimationsModule,
-        MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
+        MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
     ],
     providers: [
         ElectronService,
@@ -59,7 +61,8 @@ import { LikesComponent } from './views/likes/likes.component';
         AppComponent
     ],
     entryComponents: [
-        DownloadManagerComponent
+        DownloadManagerComponent,
+        SettingsComponent
     ]
 })
 export class AppModule { }
