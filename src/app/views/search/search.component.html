@@ -21,3 +21,6 @@
         </main>
     </mat-card>
 </main>
+
+<main class="error" *ngIf="error">{{ error }}</main>
+<main class="loading" *ngIf="!error && loading"><mat-spinner></mat-spinner></main>

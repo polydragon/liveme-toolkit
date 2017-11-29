@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
     hashtags: Replay[];
 
     error: string;
+    loading: boolean = false;
 
     constructor(
         private liveme: LiveMeService,
@@ -32,6 +33,12 @@ export class SearchComponent implements OnInit {
 
     searchSubmitted($event) {
         this.type = $event.type;
+        this.loading = true;
+
+        this.users = null;
+        this.replays = null;
+        this.hashtags = null;
+        this.error = null;
 
         switch ($event.type) {
             case 'Username':
@@ -54,7 +61,10 @@ export class SearchComponent implements OnInit {
 
     loadUsers(username: string) {
         this.liveme.getUsernames(username)
-            .then((users) => this.users = users);
+            .then((users) => {
+                this.loading = false;
+                this.users = users
+            });
     }
 
     loadUser(id: string) {
@@ -64,6 +74,7 @@ export class SearchComponent implements OnInit {
     loadVideo(id: string) {
         this.liveme.getReplay(id)
             .then((replay) => {
+                this.loading = false;
                 this.replays = [replay];
             })
             .catch(err => {
@@ -74,6 +85,7 @@ export class SearchComponent implements OnInit {
     loadHashtaggedVideos(tag: string) {
         this.liveme.getHashtaggedReplays(tag)
             .then((replays) => {
+                this.loading = false;
                 this.replays = replays;
             })
             .catch(err => {
