@@ -1,4 +1,14 @@
 <mat-card *ngIf="replay">
+    <section class="buttons">
+        <img [class.girl]="replay.sex == 0" [class.boy]="replay.sex == 1" src="{{ replay.uface }}">
+        <div class="name">
+            <span>{{ replay.uname }}</span>
+            <small *ngIf="electron.lastViewed(replay.userid) != -1">last viewed {{ electron.lastViewed(replay.userid) | amTimeAgo }}</small>
+        </div>
+        <button mat-button (click)="electron.openProfile(replay.userid)">Replays</button>
+        <button mat-button (click)="electron.openFollowingWindow(replay.userid, replay.uname)">Following</button>
+        <button mat-button (click)="electron.openFansWindow(replay.userid, replay.uname)">Fans</button>
+    </section>
     <section class="title">
         <h3>{{ replay.title || 'Untitled' }}</h3>
         <button mat-icon-button matTooltip="Click to copy the video id to the clipboard" (click)="electron.copyToClipboard(replay.vid)">ID</button>
@@ -6,7 +16,7 @@
         <button mat-icon-button (click)="electron.openVideoPlayer(videoURL, replay.msgfile, replay.vtime)">
             <mat-icon>play_arrow</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button disabled mat-icon-button>
             <mat-icon>file_download</mat-icon>
         </button>
     </section>

@@ -48,8 +48,8 @@ function createWindow() {
     windows.main = new BrowserWindow({
         width: 800,
         minWidth: 800,
-        height: 550,
-        minHeight: 550,
+        height: 600,
+        minHeight: 600,
         frame: true
     });
 

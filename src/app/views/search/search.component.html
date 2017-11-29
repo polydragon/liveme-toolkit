@@ -1,5 +1,23 @@
 <lmt-toolbar></lmt-toolbar>
 <lmt-search-form (onSubmitted)="searchSubmitted($event)"></lmt-search-form>
-<main *ngIf="!error && replay != null">
-    <lmt-hashtag-video [replay]="replay"></lmt-hashtag-video>
+
+<main class="cardList" *ngIf="!error && replays">
+    <lmt-hashtag-video *ngFor="let replay of replays" [replay]="replay"></lmt-hashtag-video>
+</main>
+
+<main class="cardList" *ngIf="!error && users">
+    <mat-card *ngFor="let user of users">
+        <aside>
+            <img [class.girl]="user.sex == 0" [class.boy]="user.sex == 1" src="{{ user.face }}">
+            <div class="name">
+                <span>{{ user.nickname }}</span>
+                <small *ngIf="electron.lastViewed(user.user_id) != -1">last viewed {{ electron.lastViewed(user.user_id) | amTimeAgo }}</small>
+            </div>
+        </aside>
+        <main>
+            <button mat-button (click)="electron.openProfile(user.user_id)">Replays</button>
+            <button mat-button (click)="electron.openFollowingWindow(user.user_id, user.nickname)">Following</button>
+            <button mat-button (click)="electron.openFansWindow(user.user_id, user.nickname)">Fans</button>
+        </main>
+    </mat-card>
 </main>

@@ -1,0 +1,73 @@
+main.cardList {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    padding-bottom: 5px;
+
+    mat-card {
+        margin-bottom: 10px;
+        padding: 5px;
+
+        display: flex;
+        flex-flow: column;
+        flex-wrap: nowrap;
+        user-select: none;
+
+        aside, main {
+            display: flex;
+            flex-flow: row;
+            flex-wrap: nowrap;
+        }
+
+        aside {
+            padding-bottom: 3px;
+            line-height: 40px;
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 30px;
+                border: 4px solid grey;
+                overflow: hidden;
+            }
+
+            img.girl {
+                border-color: pink;
+            }
+
+            img.boy {
+                border-color: skyblue;
+            }
+
+            div.name {
+                flex-grow: 1;
+                flex-shrink: 1;
+                text-align: center;
+
+                span, small {
+                    display: block;
+                }
+
+                span {
+                    height: 30px;
+                    line-height: 30px;
+                }
+
+                small {
+                    line-height: 10px;
+                    height: 10px;
+                }
+            }
+        }
+
+        main {
+            button[mat-button] {
+                flex-grow: 1;
+                flex-shrink: 1;
+                padding: 0;
+                min-width: 0;
+            }
+        }
+    }
+}

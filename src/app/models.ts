@@ -20,6 +20,21 @@ export interface UserExtended extends User {
     video_count: number;
 }
 
+export interface UserSearch {
+    user_id: string;
+    nickname: string;
+    face: string;
+    is_live: number;
+    sex: number;
+    level: number;
+}
+
+export interface ReplaySearch extends Replay {
+    uname: string;
+    uface: string;
+    userid: string;
+}
+
 export interface Replay {
     chatSystem: number;
     gzip_msgfile: string;

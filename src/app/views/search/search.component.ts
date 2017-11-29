@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LiveMeService } from '../../services/live-me.service';
-import { User, Replay } from '../../models';
+import { User, Replay, UserSearch, ReplaySearch } from '../../models';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ElectronService } from 'app/services/electron.service';
 
 @Component({
     selector: 'app-search',
@@ -12,9 +13,8 @@ import { Title } from '@angular/platform-browser';
 export class SearchComponent implements OnInit {
     type: string;
 
-    users: User[];
-    replays: Replay[];
-    replay: Replay;
+    users: UserSearch[];
+    replays: ReplaySearch[];
     hashtags: Replay[];
 
     error: string;
@@ -22,7 +22,8 @@ export class SearchComponent implements OnInit {
     constructor(
         private liveme: LiveMeService,
         private router: Router,
-        private title: Title
+        private title: Title,
+        public electron: ElectronService
     ) { }
 
     ngOnInit() {
@@ -52,7 +53,8 @@ export class SearchComponent implements OnInit {
     }
 
     loadUsers(username: string) {
-
+        this.liveme.getUsernames(username)
+            .then((users) => this.users = users);
     }
 
     loadUser(id: string) {
@@ -62,11 +64,7 @@ export class SearchComponent implements OnInit {
     loadVideo(id: string) {
         this.liveme.getReplay(id)
             .then((replay) => {
-                if (this.replay.vid) {
-                    this.replay = replay;
-                } else {
-                    this.error = 'Replay not found';
-                }
+                this.replays = [replay];
             })
             .catch(err => {
                 this.error = 'Unable to search at this time';
@@ -74,6 +72,12 @@ export class SearchComponent implements OnInit {
     }
 
     loadHashtaggedVideos(tag: string) {
-
+        this.liveme.getHashtaggedReplays(tag)
+            .then((replays) => {
+                this.replays = replays;
+            })
+            .catch(err => {
+                this.error = 'Unable to search at this time';
+            });
     }
 }

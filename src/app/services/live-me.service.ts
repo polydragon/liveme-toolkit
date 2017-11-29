@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, UserExtended, Replay, ChatMessage } from '../models';
+import { User, UserExtended, Replay, ChatMessage, UserSearch, ReplaySearch } from '../models';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -9,8 +9,12 @@ export class LiveMeService {
         private http: HttpClient
     ) { }
 
+    private _httpGet(url) {
+        return this.http.get(url, { headers: { 'd': '' } });
+    }
+
     public getFans(uid: string, page: string = '1', pageSize: string = '100'): Promise<User[]> {
-        return this.http.get(`http://live.ksmobile.net/follow/getfollowerlistship?access_token=${uid}&page_size=${pageSize}&page=${page}`)
+        return this._httpGet(`http://live.ksmobile.net/follow/getfollowerlistship?access_token=${uid}&page_size=${pageSize}&page=${page}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status != 200) {
@@ -22,7 +26,7 @@ export class LiveMeService {
     }
 
     public getFollowing(uid: string, page: string = '1', pageSize: string = '100'): Promise<User[]> {
-        return this.http.get(`http://live.ksmobile.net/follow/getfollowinglistship?access_token=${uid}&page_size=${pageSize}&page_index=${page}`)
+        return this._httpGet(`http://live.ksmobile.net/follow/getfollowinglistship?access_token=${uid}&page_size=${pageSize}&page_index=${page}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status != 200) {
@@ -34,7 +38,7 @@ export class LiveMeService {
     }
 
     public getUser(uid: string): Promise<UserExtended> {
-        return this.http.get(`http://live.ksmobile.net/user/getinfo?userid=${uid}`)
+        return this._httpGet(`http://live.ksmobile.net/user/getinfo?userid=${uid}`)
             .toPromise()
             .then((result: any) => {
                 let u = result.data.user;
@@ -65,7 +69,7 @@ export class LiveMeService {
     }
 
     public getUserReplays(uid: string, page: string = '1', pageSize: string = '100'): Promise<Replay[]> {
-        return this.http.get(`http://live.ksmobile.net/live/getreplayvideos?userid=${uid}&page_size=${pageSize}&page_index=${page}`)
+        return this._httpGet(`http://live.ksmobile.net/live/getreplayvideos?userid=${uid}&page_size=${pageSize}&page_index=${page}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status != 200) {
@@ -99,15 +103,44 @@ export class LiveMeService {
             });
     }
 
-    public getReplay(id: string): Promise<Replay> { // TODO: WHY NO WORK
-        return this.http.get(`http://live.ksmobile.net/live/queryinfo?userid=0&videoid=${id}`)
+    public getReplay(id: string): Promise<ReplaySearch> {
+        return this._httpGet(`http://live.ksmobile.net/live/queryinfo?userid=0&videoid=${id}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status != 200) {
-                    return <Replay>{};
+                    return <ReplaySearch>{};
                 }
+
+                let vid: ReplaySearch = result.data.video_info;
+                vid.uname = result.data.user_info.desc;
+                vid.uface = result.data.user_info.icon;
+                vid.userid = result.data.user_info.userid;
                 
-                return <Replay>result.data.video_info;
+                return vid;
+            });
+    }
+
+    public getUsernames(search: string, pageSize: number = 10, page: number = 1): Promise<UserSearch[]> {
+        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${search}&type=1&pagesize=${pageSize}&page=${page}`)
+            .toPromise()
+            .then((result: any) => {
+                if (result.status == 200) {
+                    return <UserSearch[]>result.data.data_info;
+                } else {
+                    return <UserSearch[]>[];
+                }
+            });
+    }
+
+    public getHashtaggedReplays(search: string, pageSize: number = 10, page: number = 1): Promise<ReplaySearch[]> {
+        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${search}&type=2&pagesize=${pageSize}&page=${page}`)
+            .toPromise()
+            .then((result: any) => {
+                if (result.status == 200) {
+                    return <ReplaySearch[]>result.data.data_info;
+                } else {
+                    return <ReplaySearch[]>[];
+                }
             });
     }
 }

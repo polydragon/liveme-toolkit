@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ElectronService } from '../../services/electron.service';
 import { Replay } from '../../models';
 
 @Component({
@@ -9,5 +10,11 @@ import { Replay } from '../../models';
 export class UserHashtagVideoComponent {
     @Input() replay: Replay;
 
-    constructor() { }
+    constructor(
+        public electron: ElectronService
+    ) { }
+
+    get videoURL() {
+        return this.replay.videosource;
+    }
 }

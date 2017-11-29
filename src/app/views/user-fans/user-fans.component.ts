@@ -32,7 +32,7 @@ export class UserFansComponent implements OnInit {
         });
 
         this.route.queryParams.subscribe(params => {
-            this.title.setTitle(`${params['name']} is following - Live.me Toolkit`);
+            this.title.setTitle(`${params['name']}'s fans - Live.me Toolkit`);
         });
     }
 }
