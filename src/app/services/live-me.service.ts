@@ -121,7 +121,7 @@ export class LiveMeService {
     }
 
     public getUsernames(search: string, pageSize: number = 10, page: number = 1): Promise<UserSearch[]> {
-        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${search}&type=1&pagesize=${pageSize}&page=${page}`)
+        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${encodeURIComponent(search)}&type=1&pagesize=${pageSize}&page=${page}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
@@ -133,7 +133,7 @@ export class LiveMeService {
     }
 
     public getHashtaggedReplays(search: string, pageSize: number = 10, page: number = 1): Promise<ReplaySearch[]> {
-        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${search}&type=2&pagesize=${pageSize}&page=${page}`)
+        return this._httpGet(`http://live.ksmobile.net/search/searchkeyword?keyword=${encodeURIComponent(search)}&type=2&pagesize=${pageSize}&page=${page}`)
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
