@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ElectronService } from 'app/services/electron.service';
 import { MatDialogRef } from '@angular/material';
 
@@ -7,13 +7,15 @@ import { MatDialogRef } from '@angular/material';
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
     downloadPath: string;
     downloadFfmpeg: string;
     downloadHistory: boolean;
     downloadtemplate: string;
     useTemplate: boolean;
     videoChat: boolean;
+
+    event;
 
     constructor(
         private dialogRef: MatDialogRef<SettingsComponent>,
@@ -27,6 +29,18 @@ export class SettingsComponent implements OnInit {
         this.useTemplate = this.electron.settings.get('download.useTemplate');
         this.downloadtemplate = this.electron.settings.get('download.template');
         this.videoChat = this.electron.settings.get('video.chat');
+
+        this.event = this.electron.events.subscribe((e) => {
+            if (e.event == 'openDirectoryResult' && e.uid == 'settingsDownloadPath') {
+                this.downloadPath = e.result;
+            } else if (e.event == 'openFileResult' && e.uid == 'settingsFfmpegPath') {
+                this.downloadFfmpeg = e.result;
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.event.unsubscribe();
     }
 
     onSave() {
@@ -41,5 +55,13 @@ export class SettingsComponent implements OnInit {
 
     checkFfmpeg() {
         // NYI
+    }
+
+    browseDownload() {
+        this.electron.openDirectoryWindow('settingsDownloadPath');
+    }
+
+    browseFfmpeg() {
+        this.electron.openFileWindow('settingsFfmpegPath');
     }
 }

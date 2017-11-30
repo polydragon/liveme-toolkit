@@ -111,6 +111,14 @@ export class ElectronService {
         this.clipboard.writeText(text);
     }
 
+    openDirectoryWindow(uid: string) {
+        this.send({ event: 'openDirectoryWindow', uid: uid });
+    }
+
+    openFileWindow(uid: string) {
+        this.send({ event: 'openFileWindow', uid: uid });
+    }
+
     // Generic Stuff
 
     send(data: any): void {

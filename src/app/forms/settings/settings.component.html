@@ -12,6 +12,7 @@
         <div>
             <mat-form-field class="full-width">
                 <input matInput placeholder="Folder to save downloads in" name="downloadPath" [(ngModel)]="downloadPath" disabled>
+                <button mat-button matSuffix (click)="browseDownload()">BROWSE</button>
             </mat-form-field>
         </div>
         <div class="flex">
@@ -21,14 +22,11 @@
         <div>
             <mat-form-field class="full-width">
                 <input matInput placeholder="FFMPEG path" name="downloadFfmpeg" [(ngModel)]="downloadFfmpeg" disabled>
+                <button mat-button matSuffix (click)="browseFfmpeg()">BROWSE</button>
             </mat-form-field>
         </div>
-    </section>
-
-    <section>
-        <h2>Filenames</h2>
         <div class="flex">
-            <label class="fullsize">Use custom filenames</label>
+            <label class="fullsize">Use custom filenames for downloads</label>
             <mat-slide-toggle name="useTemplate" [(ngModel)]="useTemplate"></mat-slide-toggle>
         </div>
         <div [hidden]="!useTemplate">

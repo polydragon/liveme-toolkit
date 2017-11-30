@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 
@@ -15,7 +15,7 @@ let windows: any = {
 }
 
 if (serve) {
-    require('electron-reload')(__dirname, { });
+    require('electron-reload')(__dirname, {});
 }
 
 function initMainListener() {
@@ -33,6 +33,12 @@ function initMainListener() {
 
                 case 'openVideoPlayer':
                     return openVideoPlayer(msg.url, msg.chat, msg.start);
+
+                case 'openDirectoryWindow':
+                    return openDirectoryWindow(msg.uid);
+
+                case 'openFileWindow':
+                    return openFileWindow(msg.uid);
             }
         }
     });
@@ -155,6 +161,34 @@ function openVideoPlayer(video: string, chat: string, startTime: string) {
             windows.video = null;
         });
     }
+}
+
+function openDirectoryWindow(uid: string) {
+    dialog.showOpenDialog(windows.main, {
+        defaultPath: (<any>global).Settings.get('download.path'),
+        properties: ['openDirectory', 'createDirectory']
+    }, (paths) => {
+        if (paths && paths.length == 1) {
+            windows.main.webContents.send('ELECTRON_BRIDGE_CLIENT', { event: 'openDirectoryResult', uid: uid, result: paths[0] });
+        }
+    });
+}
+
+function openFileWindow(uid: string) {
+    let defaultPath = (<any>global).Settings.get('download.ffmpeg');
+
+    if (defaultPath == 'ffmpeg') {
+        defaultPath = app.getPath('desktop');
+    }
+
+    dialog.showOpenDialog(windows.main, {
+        defaultPath: defaultPath,
+        properties: ['openFile']
+    }, (paths) => {
+        if (paths && paths.length == 1) {
+            windows.main.webContents.send('ELECTRON_BRIDGE_CLIENT', { event: 'openFileResult', uid: uid, result: paths[0] });
+        }
+    });
 }
 
 /* ============
