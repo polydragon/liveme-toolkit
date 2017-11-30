@@ -2,7 +2,7 @@
     <section class="buttons">
         <img [class.female]="stream.sex == 0" [class.male]="stream.sex == 1" src="{{ stream.uface }}">
         <div class="name">
-            <span><mat-icon class="live" matTooltip="Live now" *ngIf="replay.online == 1">fiber_manual_record</mat-icon>{{ stream.uname }}</span>
+            <span>{{ stream.uname }}</span>
             <small *ngIf="electron.lastViewed(stream.userid) != -1">last viewed {{ electron.lastViewed(stream.userid) | amTimeAgo }}</small>
         </div>
         <button mat-button (click)="electron.openProfile(stream.userid)">Replays</button>
@@ -23,7 +23,7 @@
     <section class="info">
         <div class="numberBlock">
             <span class="number" matTooltip="{{ stream.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ stream.vtime | amFromUnix | amTimeAgo }}</span>
-            <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>
+            <span class="label">started</span>
         </div>
         <div class="numberBlock">
             <span class="number">{{ stream.watchnumber | number }}</span>

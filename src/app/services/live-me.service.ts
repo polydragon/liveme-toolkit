@@ -73,7 +73,6 @@ export class LiveMeService {
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
-                    console.log(result);
                     return <Replay[]>result.data.video_info;
                 } else {
                     Promise.reject('api error, ' + (result.error || 'unknown error'));
