@@ -1,0 +1,39 @@
+osx_image: xcode8.3
+dist: trusty
+sudo: false
+language: node_js
+node_js: '8'
+env:
+  global:
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+os:
+- linux
+- osx
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.npm/_prebuilds"
+before_install:
+- mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v2.2.0/git-lfs-$([
+  "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-2.2.0.tar.gz
+  | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
+install:
+- npm install
+script:
+- npm run electron:linux
+- npm run electron:mac
+before_cache:
+- rm -rf $HOME/.cache/electron-builder/wine
+notifications:
+  email: false
+deploy:
+  provider: releases
+  api_key:
+    secure: qbxEyTdo9Urp3/ja0sV1SWGgBsbwAiPxh8sVEtGcl/+hhQau1lUjhCS/JuPxqpCPUIVXcAQsdSwZCtpVjj8WRyQ7O60NZQGzP+H+HusuchcQpGFpfZrvtmqoK2umyAIRauBQoJGRtvil055DM6NMEtaN/ZorlS7PUZJMPWc3skRRW+ZWVRnDCBCc1cyyKcdZuLLbhSqQnn1n1JwkvJOg/n9zRIquGWy4f1lJqUwYf80XdX/EJ0Mc4ii95EkNjjSBqNSAzyzp+XLbIqpIGKoMXwZZXJoS6mtoA4LS0SLltH2m04OGwPO1Eg6tZlk4Ol83PUOJKUzOKZDhKcKjqbiWB5wIFl6WFrEh3+y5aLgDc5ftbWup5/L61SEzD6anWoLWFjkjLVEb1RYUPvwzGUZZH/ulUzzu0yjmtNXg5vD28CnfnOuaELoDcdSVKsWNxV8LudPfyOZhOCddAsmUq/XVF68Y4rdKcsjAT6TgVdHCnjY3G9ZliFlJdnbJ62KAvATGy9Le5AQ1qF+U9q+FsChn6D0MxwP3Vh4/evbbNOg1ABgSGc/Wh1bJymfSo9GhR80gUXNf62P1+7kzJwK5nLrvvj6QxjGcvCzxqefqzXGncWNJXEtCIWXNZGGO7PFpCNz7oHInW7pAwIqAUvlACSY0DkY57mv/ABlRWhowynQUfso=
+  file: app-builds/*
+  on:
+    tags: true
+    repo: polydragon/liveme-toolkit
