@@ -16,7 +16,7 @@
             </main>
         </mat-card>
     </div>
-    <div class="error" *ngIf="followers && followers.length == 0">This user is not following anyone</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
     <div class="loading" *ngIf="!followers">
         <mat-spinner></mat-spinner>
     </div>

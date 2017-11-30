@@ -69,7 +69,15 @@ export class SearchComponent implements OnInit {
         this.liveme.getUsernames(username)
             .then((users) => {
                 this.loading = false;
-                this.users = users
+                this.users = users;
+
+                if (this.users.length == 0) {
+                    this.error = 'No usernames were found with that search term';
+                }
+            })
+            .catch(err => {
+                this.error = 'Unable to search at this time';
+                console.log(err);
             });
     }
 
@@ -81,10 +89,16 @@ export class SearchComponent implements OnInit {
         this.liveme.getReplay(id)
             .then((replay) => {
                 this.loading = false;
-                this.replays = [replay];
+
+                if (!replay) {
+                    this.error = 'No replays were found with that ID';
+                } else {
+                    this.replays = [replay];
+                }
             })
             .catch(err => {
                 this.error = 'Unable to search at this time';
+                console.log(err);
             });
     }
 
@@ -93,9 +107,14 @@ export class SearchComponent implements OnInit {
             .then((replays) => {
                 this.loading = false;
                 this.replays = replays;
+
+                if (this.replays.length == 0) {
+                    this.error = 'No replays were found with that hashtag';
+                }
             })
             .catch(err => {
                 this.error = 'Unable to search at this time';
+                console.log(err);
             });
     }
 }

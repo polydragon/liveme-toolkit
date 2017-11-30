@@ -14,6 +14,7 @@ import { ElectronService } from '../../services/electron.service';
 export class UserFansComponent implements OnInit {
     fans: User[];
     filter: string;
+    error: string;
 
     constructor(
         private title: Title,
@@ -28,6 +29,14 @@ export class UserFansComponent implements OnInit {
 
             this.liveme.getFans(id).then((fans) => {
                 this.fans = fans;
+
+                if (this.fans.length == 0) {
+                    this.error = 'This user has no fans';
+                }
+            })
+            .catch(err => {
+                this.error = 'Unable to retrieve the user\'s fans at this time';
+                console.log(err);
             });
         });
 

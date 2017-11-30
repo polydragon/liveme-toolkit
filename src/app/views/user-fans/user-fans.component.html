@@ -16,7 +16,7 @@
             </main>
         </mat-card>
     </div>
-    <div class="error" *ngIf="fans && fans.length == 0">This user has no fans</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
     <div class="loading" *ngIf="!fans">
         <mat-spinner></mat-spinner>
     </div>

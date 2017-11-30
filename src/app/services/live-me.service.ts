@@ -17,11 +17,11 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/follow/getfollowerlistship?access_token=${uid}&page_size=${pageSize}&page=${page}`)
             .toPromise()
             .then((result: any) => {
-                if (result.status != 200) {
-                    return [];
+                if (result.status == 200) {
+                    return (<User[]>(<any>result).data);
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
-
-                return (<User[]>(<any>result).data);
             });
     }
 
@@ -29,11 +29,11 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/follow/getfollowinglistship?access_token=${uid}&page_size=${pageSize}&page_index=${page}`)
             .toPromise()
             .then((result: any) => {
-                if (result.status != 200) {
-                    return [];
+                if (result.status == 200) {
+                    return (<User[]>(<any>result).data);
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
-
-                return (<User[]>(<any>result).data);
             });
     }
 
@@ -41,30 +41,30 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/user/getinfo?userid=${uid}`)
             .toPromise()
             .then((result: any) => {
-                let u = result.data.user;
+                if (result.status == 200) {
+                    let u = result.data.user;
 
-                if (result.status != 200) {
-                    return <UserExtended>{};
+                    return <UserExtended>{
+                        fans_count: u.count_info.follower_count,
+                        following_count: u.count_info.following_count,
+                        live_count: u.count_info.live_count,
+                        replay_count: u.count_info.replay_count,
+                        video_count: u.count_info.video_count,
+                        countryCode: u.user_info.countryCode,
+                        level: u.user_info.level,
+                        sex: u.user_info.sex,
+                        short_id: u.user_info.short_id,
+                        uid: u.user_info.uid,
+                        uname: u.user_info.uname,
+                        usign: u.user_info.usign,
+                        face: u.user_info.face,
+                        big_cover: u.user_info.big_cover,
+                        cover: u.user_info.cover,
+                        big_face: u.user_info.big_face
+                    };
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
-                
-                return <UserExtended>{
-                    fans_count: u.count_info.follower_count,
-                    following_count: u.count_info.following_count,
-                    live_count: u.count_info.live_count,
-                    replay_count: u.count_info.replay_count,
-                    video_count: u.count_info.video_count,
-                    countryCode: u.user_info.countryCode,
-                    level: u.user_info.level,
-                    sex: u.user_info.sex,
-                    short_id: u.user_info.short_id,
-                    uid: u.user_info.uid,
-                    uname: u.user_info.uname,
-                    usign: u.user_info.usign,
-                    face: u.user_info.face,
-                    big_cover: u.user_info.big_cover,
-                    cover: u.user_info.cover,
-                    big_face: u.user_info.big_face
-                };
             });
     }
 
@@ -72,11 +72,11 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/live/getreplayvideos?userid=${uid}&page_size=${pageSize}&page_index=${page}`)
             .toPromise()
             .then((result: any) => {
-                if (result.status != 200) {
-                    return <Replay[]>[];
+                if (result.status == 200) {
+                    return <Replay[]>result.data.video_info;
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
-                
-                return <Replay[]>result.data.video_info;
             });
     }
 
@@ -107,16 +107,22 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/live/queryinfo?userid=0&videoid=${id}`)
             .toPromise()
             .then((result: any) => {
-                if (result.status != 200) {
-                    return <ReplaySearch>{};
-                }
+                if (result.status == 200) {
+                    console.log(result);
 
-                let vid: ReplaySearch = result.data.video_info;
-                vid.uname = result.data.user_info.desc;
-                vid.uface = result.data.user_info.icon;
-                vid.userid = result.data.user_info.userid;
-                
-                return vid;
+                    if (!result.data.video_info.uname) {
+                        return null;
+                    }
+
+                    let vid: ReplaySearch = result.data.video_info;
+                    vid.uname = result.data.user_info.desc;
+                    vid.uface = result.data.user_info.icon;
+                    vid.userid = result.data.user_info.userid;
+                    
+                    return vid;
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                }
             });
     }
 
@@ -127,7 +133,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <UserSearch[]>result.data.data_info;
                 } else {
-                    return <UserSearch[]>[];
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
             });
     }
@@ -139,7 +145,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <ReplaySearch[]>result.data.data_info;
                 } else {
-                    return <ReplaySearch[]>[];
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }
             });
     }

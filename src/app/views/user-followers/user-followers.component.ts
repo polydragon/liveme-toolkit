@@ -14,6 +14,7 @@ import { ElectronService } from '../../services/electron.service';
 export class UserFollowersComponent implements OnInit {
     followers: User[];
     filter: string;
+    error: string;
 
     constructor(
         private title: Title,
@@ -28,7 +29,15 @@ export class UserFollowersComponent implements OnInit {
 
             this.liveme.getFollowing(id).then((followers) => {
                 this.followers = followers;
-            });
+
+                if (this.followers.length == 0) {
+                    this.error = 'This user is not following anyone';
+                }
+            })
+            .catch(err => {
+                this.error = 'Unable to retrieve who the user is following at this time';
+                console.error(err);
+            })
         });
 
         this.route.queryParams.subscribe(params => {
