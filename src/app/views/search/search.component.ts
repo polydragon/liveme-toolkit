@@ -32,6 +32,12 @@ export class SearchComponent implements OnInit {
     }
 
     searchSubmitted($event) {
+        let query = $event.term.trim();
+
+        if (!query || query.length == 0) {
+            return;
+        }
+
         this.type = $event.type;
         this.loading = true;
 
@@ -42,19 +48,19 @@ export class SearchComponent implements OnInit {
 
         switch ($event.type) {
             case 'Username':
-                this.loadUsers($event.term);
+                this.loadUsers(query);
                 break;
 
             case 'User ID':
-                this.loadUser($event.term);
+                this.loadUser(query);
                 break;
 
             case 'Video ID':
-                this.loadVideo($event.term);
+                this.loadVideo(query);
                 break;
 
             case 'Hashtag':
-                this.loadHashtaggedVideos($event.term);
+                this.loadHashtaggedVideos(query);
                 break;
         }
     }
