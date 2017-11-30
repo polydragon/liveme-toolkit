@@ -20,7 +20,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return (<User[]>(<any>result).data);
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -32,7 +32,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return (<User[]>(<any>result).data);
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -63,7 +63,7 @@ export class LiveMeService {
                         big_face: u.user_info.big_face
                     };
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -75,7 +75,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <Replay[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -119,7 +119,7 @@ export class LiveMeService {
                     
                     return vid;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -131,7 +131,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <UserSearch[]>result.data.data_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -143,7 +143,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <ReplaySearch[]>result.data.data_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -155,7 +155,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -167,7 +167,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
@@ -179,7 +179,7 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
                 }
             });
     }
