@@ -24,7 +24,7 @@ before_install:
 
 install:
 - npm install
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm install -g 7zip-bin-linux; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm install 7zip-bin-linux; fi
 
 script:
 - npm run ci
