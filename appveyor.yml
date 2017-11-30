@@ -1,0 +1,25 @@
+environment:
+  GH_TOKEN:
+    secure: nviFiUW6YA1/SukSbdeSY+63afY5ognNPfXMFoRxXdnCSk0RKZZ6X8HpxamGs2np
+  matrix:
+  - nodejs_version: 8
+
+cache:
+- node_modules
+
+init:
+- ps: Install-Product node $env:nodejs_version
+
+install:
+- cmd: npm install
+
+build_script:
+- cmd: npm run ci
+
+matrix:
+  fast_finish: true
+
+shallow_clone: true
+clone_depth: 1
+
+deploy: off

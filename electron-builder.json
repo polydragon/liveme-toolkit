@@ -5,21 +5,26 @@
         "output": "app-builds"
     },
     "win": {
-        "icon": "dist/favicon",
+        "icon": "dist/favicon.ico",
         "target": [
-            "portable"
+            "zip"
         ]
     },
     "mac": {
-        "icon": "dist/favicon",
+        "icon": "dist/favicon.icns",
         "target": [
             "dmg"
         ]
     },
     "linux": {
-        "icon": "dist/favicon",
+        "icon": "dist/favicon.png",
         "target": [
-            "AppImage"
+            "tar.gz"
         ]
-    }
+    },
+    "publish": [
+        {
+            "provider": "github"
+        }
+    ]
 }
