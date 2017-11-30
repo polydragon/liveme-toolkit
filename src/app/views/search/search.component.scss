@@ -1,73 +1,91 @@
-main.cardList {
-    display: flex;
-    flex-flow: column;
-    flex-wrap: nowrap;
-    padding: 10px;
-    padding-bottom: 5px;
+:host > main {
+    display: block;
+    height: calc(100vh - 166px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    position: relative;
 
-    mat-card {
-        margin-bottom: 10px;
-        padding: 5px;
-
+    div.cardList {
         display: flex;
         flex-flow: column;
         flex-wrap: nowrap;
-        user-select: none;
+        padding: 10px;
+        padding-bottom: 5px;
 
-        aside, main {
+        mat-card {
+            margin-bottom: 10px;
+            padding: 5px;
+
             display: flex;
-            flex-flow: row;
+            flex-flow: column;
             flex-wrap: nowrap;
-        }
+            user-select: none;
+            flex-grow: 0;
+            flex-shrink: 0;
 
-        aside {
-            padding-bottom: 3px;
-            line-height: 40px;
-
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 30px;
-                border: 4px solid grey;
-                overflow: hidden;
+            aside, main {
+                display: flex;
+                flex-flow: row;
+                flex-wrap: nowrap;
             }
 
-            img.female {
-                border-color: pink;
-            }
+            aside {
+                padding-bottom: 3px;
+                line-height: 40px;
 
-            img.male {
-                border-color: skyblue;
-            }
-
-            div.name {
-                flex-grow: 1;
-                flex-shrink: 1;
-                text-align: center;
-
-                span, small {
-                    display: block;
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 30px;
+                    border: 4px solid grey;
+                    overflow: hidden;
                 }
 
-                span {
-                    height: 30px;
-                    line-height: 30px;
+                img.female {
+                    border-color: pink;
                 }
 
-                small {
-                    line-height: 10px;
-                    height: 10px;
+                img.male {
+                    border-color: skyblue;
+                }
+
+                div.name {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    text-align: center;
+
+                    span, small {
+                        display: block;
+                    }
+
+                    span {
+                        height: 30px;
+                        line-height: 30px;
+                    }
+
+                    small {
+                        line-height: 10px;
+                        height: 10px;
+                    }
+                }
+            }
+
+            main {
+                button[mat-button] {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    padding: 0;
+                    min-width: 0;
                 }
             }
         }
+    }
 
-        main {
-            button[mat-button] {
-                flex-grow: 1;
-                flex-shrink: 1;
-                padding: 0;
-                min-width: 0;
-            }
-        }
+    div.loading, div.error {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
