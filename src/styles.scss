@@ -20,6 +20,14 @@
         color: $fgdialog;
         @include mat-elevation(2);
     }
+
+    img.female {
+        border-color: pink !important;
+    }
+
+    img.male {
+        border-color: skyblue !important;
+    }
 }
 
 @include mat-core();

@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
     }
 
     searchSubmitted($event) {
-        let query = $event.term.trim();
+        let query = $event.term ? $event.term.trim() : null;
 
         if (!query || query.length == 0) {
             return;
