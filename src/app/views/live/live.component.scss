@@ -1,0 +1,94 @@
+:host {
+    > mat-card {
+        display: flex;
+
+        mat-button-toggle-group {
+            margin: 0 auto;
+        }
+    }
+
+    main {
+        display: block;
+        height: calc(100vh - 148px);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        position: relative;
+
+        div.cardList {
+            display: flex;
+            flex-flow: column;
+            flex-wrap: nowrap;
+            padding: 10px;
+            padding-bottom: 5px;
+
+            mat-card {
+                margin-bottom: 10px;
+                padding: 5px;
+
+                display: flex;
+                flex-flow: column;
+                flex-wrap: nowrap;
+                user-select: none;
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                aside, main {
+                    display: flex;
+                    flex-flow: row;
+                    flex-wrap: nowrap;
+                }
+
+                aside {
+                    padding-bottom: 3px;
+                    line-height: 40px;
+
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 30px;
+                        border: 4px solid grey;
+                        overflow: hidden;
+                    }
+
+                    div.name {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        text-align: center;
+
+                        span, small {
+                            display: block;
+                        }
+
+                        span {
+                            height: 30px;
+                            line-height: 30px;
+                        }
+
+                        small {
+                            line-height: 10px;
+                            height: 10px;
+                        }
+                    }
+                }
+
+                main {
+                    button[mat-button] {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        padding: 0;
+                        min-width: 0;
+                    }
+                }
+            }
+        }
+
+        div.loading, div.error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-select: none;
+        }
+    }
+}

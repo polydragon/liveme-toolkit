@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ElectronService } from './services/electron.service';
@@ -24,6 +24,8 @@ import { SearchFormComponent } from './forms/search-form/search-form.component';
 import { FavouritesComponent } from './views/favourites/favourites.component';
 import { LikesComponent } from './views/likes/likes.component';
 import { SettingsComponent } from './forms/settings/settings.component';
+import { LiveComponent } from './views/live/live.component';
+import { ReplayLiveComponent } from './components/replay-live/replay-live.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { SettingsComponent } from './forms/settings/settings.component';
         SearchFormComponent,
         FavouritesComponent,
         LikesComponent,
-        SettingsComponent
+        SettingsComponent,
+        LiveComponent,
+        ReplayLiveComponent
     ],
     imports: [
         BrowserModule,
@@ -51,7 +55,7 @@ import { SettingsComponent } from './forms/settings/settings.component';
         MomentModule,
 
         BrowserAnimationsModule,
-        MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
+        MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
     ],
     providers: [
         ElectronService,

@@ -1,0 +1,25 @@
+<lmt-toolbar></lmt-toolbar>
+<mat-card>
+    <mat-button-toggle-group (change)="onChanged()" [(ngModel)]="newType">
+        <mat-button-toggle value="live" [disabled]="loading">
+            ALL
+        </mat-button-toggle>
+        <mat-button-toggle value="male" [disabled]="loading">
+            MALE
+        </mat-button-toggle>
+        <mat-button-toggle value="female" [disabled]="loading">
+            FEMALE
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</mat-card>
+
+<main>
+    <div class="cardList" *ngIf="!error && streams">
+        <lmt-replay-live *ngFor="let stream of streams" [stream]="stream"></lmt-replay-live>
+    </div>
+
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <div class="loading" *ngIf="!error && loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</main>

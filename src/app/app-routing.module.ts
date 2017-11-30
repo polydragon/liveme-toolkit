@@ -7,6 +7,7 @@ import { VideoPlayerComponent } from './views/video-player/video-player.componen
 import { SearchComponent } from './views/search/search.component';
 import { FavouritesComponent } from './views/favourites/favourites.component';
 import { LikesComponent } from './views/likes/likes.component';
+import { LiveComponent } from 'app/views/live/live.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'search', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'video', component: VideoPlayerComponent },
     { path: 'favourites', component: FavouritesComponent },
     { path: 'likes', component: LikesComponent },
+    { path: 'live', component: LiveComponent }
 ];
 
 @NgModule({

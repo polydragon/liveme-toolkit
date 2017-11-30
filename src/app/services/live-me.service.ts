@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, UserExtended, Replay, ChatMessage, UserSearch, ReplaySearch } from '../models';
+import { Live, User, UserExtended, Replay, ChatMessage, UserSearch, ReplaySearch } from '../models';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -73,6 +73,7 @@ export class LiveMeService {
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
+                    console.log(result);
                     return <Replay[]>result.data.video_info;
                 } else {
                     Promise.reject('api error, ' + (result.error || 'unknown error'));
@@ -108,8 +109,6 @@ export class LiveMeService {
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
-                    console.log(result);
-
                     if (!result.data.video_info.uname) {
                         return null;
                     }
@@ -144,6 +143,42 @@ export class LiveMeService {
             .then((result: any) => {
                 if (result.status == 200) {
                     return <ReplaySearch[]>result.data.data_info;
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                }
+            });
+    }
+
+    public getLiveNew(): Promise<Live[]> {
+        return this._httpGet(`https://live.ksmobile.net/live/newmaininfo`)
+            .toPromise()
+            .then((result: any) => {
+                if (result.status == 200) {
+                    return <Live[]>result.data.video_info;
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                }
+            });
+    }
+
+    public getLiveFemale(): Promise<Live[]> {
+        return this._httpGet(`https://live.ksmobile.net/live/girls`)
+            .toPromise()
+            .then((result: any) => {
+                if (result.status == 200) {
+                    return <Live[]>result.data.video_info;
+                } else {
+                    Promise.reject('api error, ' + (result.error || 'unknown error'));
+                }
+            });
+    }
+
+    public getLiveMale(): Promise<Live[]> {
+        return this._httpGet(`https://live.ksmobile.net/live/boys`)
+            .toPromise()
+            .then((result: any) => {
+                if (result.status == 200) {
+                    return <Live[]>result.data.video_info;
                 } else {
                     Promise.reject('api error, ' + (result.error || 'unknown error'));
                 }

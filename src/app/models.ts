@@ -61,3 +61,12 @@ export interface Replay {
 export interface ChatMessage {
     
 }
+
+export interface Live extends Replay {
+    impression: [{
+        tag_id: number,
+        tag_name: string,
+        tag_color: string
+        num: number
+    }]
+}

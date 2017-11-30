@@ -1,6 +1,6 @@
 <mat-card *ngIf="replay" [class.new]="+isNew < +replay.vtime">
     <section class="title">
-        <h3>{{ replay.title || 'Untitled' }}</h3>
+        <h3><mat-icon class="live" matTooltip="Live now" *ngIf="replay.online == 1">fiber_manual_record</mat-icon>{{ replay.title || 'Untitled' }}</h3>
         <button mat-icon-button matTooltip="Click to copy the video id to the clipboard" (click)="electron.copyToClipboard(replay.vid)">ID</button>
         <button mat-icon-button matTooltip="Click to copy the video url to the clipboard" (click)="electron.copyToClipboard(videoURL)">URL</button>
         <button mat-icon-button (click)="electron.openVideoPlayer(videoURL, replay.msgfile, replay.vtime)">
@@ -12,8 +12,8 @@
     </section>
     <section class="info">
         <div class="numberBlock">
-            <span class="number" title="{{ replay.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ replay.vtime | amFromUnix | amTimeAgo }}</span>
-            <span class="label">streamed</span>
+            <span class="number" matTooltip="{{ replay.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ replay.vtime | amFromUnix | amTimeAgo }}</span>
+            <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>
         </div>
         <div class="numberBlock">
             <span class="number">{{ replay.videolength | duration }}</span>
