@@ -1,9 +1,17 @@
 <mat-dialog-content>
     <section>
+        <h2>Video Player</h2>
+        <div class="flex">
+            <label class="fullsize">Enable chat messages next to video</label>
+            <mat-slide-toggle name="videoChat" [(ngModel)]="videoChat"></mat-slide-toggle>
+        </div>
+    </section>
+
+    <section>
         <h2>Downloads</h2>
         <div>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Folder to save downloads in" name="downloadPath" [(ngModel)]="downloadPath">
+                <input matInput placeholder="Folder to save downloads in" name="downloadPath" [(ngModel)]="downloadPath" disabled>
             </mat-form-field>
         </div>
         <div class="flex">
@@ -12,10 +20,11 @@
         </div>
         <div>
             <mat-form-field class="full-width">
-                <input matInput placeholder="FFMPEG path" name="downloadFfmpeg" [(ngModel)]="downloadFfmpeg">
+                <input matInput placeholder="FFMPEG path" name="downloadFfmpeg" [(ngModel)]="downloadFfmpeg" disabled>
             </mat-form-field>
         </div>
     </section>
+
     <section>
         <h2>Filenames</h2>
         <div class="flex">
@@ -53,8 +62,8 @@
     </section>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button>CHECK FFMPEG</button>
+    <button mat-button (click)="checkFfmpeg()">CHECK FFMPEG</button>
     <div style="flex: 1 1 auto;"></div>
-    <button mat-button>SAVE</button>
+    <button mat-button (click)="onSave()">SAVE</button>
     <button mat-button color="warn" mat-dialog-close>CLOSE</button>
 </mat-dialog-actions>

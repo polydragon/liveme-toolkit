@@ -50,10 +50,10 @@ export class Settings {
     }
 
     checkVersion() {
-        //if (this.get('version') == 1) {
-        //      this.set('version', 2);
-        //      and any other settings that may have added between versions
-        //}
+        if (this.get('version') == 1) {
+            this.set('version', 2);
+            this.set('video.chat', false);
+        }
     }
 
     setDefaults() {

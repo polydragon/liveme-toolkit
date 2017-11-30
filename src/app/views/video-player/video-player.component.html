@@ -1,7 +1,7 @@
 <main>
     <video #video controls autoplay></video>
 </main>
-<aside *ngIf="chatMessages">
+<aside *ngIf="chatEnabled && chatMessages">
     <mat-card *ngFor="let msg of chatMessages">
         <div class="infobar">
             <span class="username">{{ msg.content.user.name }}</span>
@@ -10,9 +10,9 @@
         <span class="message">{{ msg.content.content }}</span>
     </mat-card>
 </aside>
-<aside class="loading" *ngIf="!chatMessages && !chatError">
+<aside class="loading" *ngIf="chatEnabled && !chatMessages && !chatError">
     <div><mat-spinner></mat-spinner></div>
 </aside>
-<aside class="error" *ngIf="chatError">
+<aside class="error" *ngIf="chatEnabled && chatError">
     <span>{{ chatError }}</span>
 </aside>

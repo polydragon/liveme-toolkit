@@ -135,8 +135,8 @@ function openVideoPlayer(video: string, chat: string, startTime: string) {
         windows.video.focus();
     } else {
         windows.video = new BrowserWindow({
-            width: 709,
-            height: 720,
+            width: (<any>global).Settings.get('video.chat') ? 640 : 320,
+            height: 600,
             frame: true,
             //show: false,
             webPreferences: {

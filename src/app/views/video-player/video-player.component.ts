@@ -3,6 +3,7 @@ import * as Hls from 'hls.js';
 import { ActivatedRoute } from '@angular/router';
 import { LiveMeService } from '../../services/live-me.service';
 import { Title } from '@angular/platform-browser';
+import { ElectronService } from 'app/services/electron.service';
 
 @Component({
     selector: 'lmt-video-player-view',
@@ -13,6 +14,7 @@ export class VideoPlayerComponent implements OnInit {
     chatMessages;
     startTime;
 
+    chatEnabled: boolean = false;
     chatError: string;
     hlsError: string;
 
@@ -23,7 +25,8 @@ export class VideoPlayerComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private liveme: LiveMeService,
-        private title: Title
+        private title: Title,
+        private electron: ElectronService
     ) { }
 
     ngOnInit() {
@@ -36,18 +39,22 @@ export class VideoPlayerComponent implements OnInit {
             this.loadVideo(decodeURIComponent(params.url));
             this.startTime = +params.start;
 
-            this.liveme
-                .getChatMessages(decodeURIComponent(params.chat))
-                .then((messages) => {
-                    if (messages.length == 0) {
-                        this.chatError = 'There were no messages sent';
-                    }
+            this.chatEnabled = this.electron.settings.get('video.chat');
 
-                    this.chatMessages = messages;
-                })
-                .catch(err => {
-                    this.chatError = 'Unable to retrieve the messages at this time';
-                });
+            if (this.chatEnabled) {
+                this.liveme
+                    .getChatMessages(decodeURIComponent(params.chat))
+                    .then((messages) => {
+                        if (messages.length == 0) {
+                            this.chatError = 'There were no messages sent';
+                        }
+
+                        this.chatMessages = messages;
+                    })
+                    .catch(err => {
+                        this.chatError = 'Unable to retrieve the messages at this time';
+                    });
+            }
         });
     }
 
