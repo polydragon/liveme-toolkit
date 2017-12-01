@@ -48,7 +48,13 @@ export class UserComponent implements OnInit, OnDestroy {
                     this.title.setTitle(`${this.user.uname} - Live.me Toolkit`);
                 })
                 .catch(err => {
-                    this.userError = 'Unable to retrieve the user at this time';
+                    if (err == 'api error: user not exist') {
+                        this.userError = 'A user does not exist with that ID';
+                    } else {
+                        this.userError = 'Unable to retrieve the user at this time';
+                    }
+
+                    this.title.setTitle(`Couldn't get user details - Live.me Toolkit`);
                 });
 
             this.liveme

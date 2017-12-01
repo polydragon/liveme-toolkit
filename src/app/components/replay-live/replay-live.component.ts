@@ -13,8 +13,4 @@ export class ReplayLiveComponent {
     constructor(
         public electron: ElectronService
     ) { }
-
-    get videoURL() {
-        return this.stream.videosource;
-    }
 }

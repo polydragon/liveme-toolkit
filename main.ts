@@ -2,8 +2,11 @@ import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 
-import { UserManager } from './user-manager';
-import { Settings } from './settings';
+import { UserManager } from './src-electron/user-manager';
+import { Settings } from './src-electron/settings';
+import { DownloadManager } from './src-electron/download-manager';
+
+const log = require('electron-log');
 
 let serve;
 const args = process.argv.slice(1);
@@ -85,7 +88,7 @@ try {
     });
 
 } catch (e) {
-
+    (<any>global).Log.error(e);                                
 }
 
 function openProfile(uid: string) {
@@ -206,11 +209,15 @@ function initFs() {
     fs.ensureFileSync(path.join(app.getPath('userData'), 'likes.json'));
     fs.ensureFileSync(path.join(app.getPath('userData'), 'viewed.json'));
 
-    let usermanager = new UserManager();
-    usermanager.load();
-    (<any>global).UserManager = usermanager;
+    (<any>global).Log = log;
+    (<any>global).Settings = new Settings();
+    (<any>global).UserManager = new UserManager();
+    (<any>global).DownloadManager = new DownloadManager();
 
-    let settings = new Settings();
-    settings.load();
-    (<any>global).Settings = settings;
+    (<any>global)
+        .Settings.load()
+        .then(() => {
+            (<any>global).UserManager.load();
+            (<any>global).DownloadManager.load();
+        });
 }

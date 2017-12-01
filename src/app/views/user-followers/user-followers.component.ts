@@ -36,7 +36,6 @@ export class UserFollowersComponent implements OnInit {
             })
             .catch(err => {
                 this.error = 'Unable to retrieve who the user is following at this time';
-                console.error(err);
             })
         });
 

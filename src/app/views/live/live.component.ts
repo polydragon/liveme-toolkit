@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Live } from 'app/models';
 import { LiveMeService } from 'app/services/live-me.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'lmt-live',
@@ -15,11 +16,13 @@ export class LiveComponent implements OnInit {
     streams: Live[] = [];
 
     constructor(
-        private liveme: LiveMeService
+        private liveme: LiveMeService,
+        private title: Title
     ) { }
 
     ngOnInit() {
         this.loadStreams();
+        this.title.setTitle('Livestreams - Live.me Toolkit');
     }
 
     private getData() {
@@ -49,7 +52,6 @@ export class LiveComponent implements OnInit {
             .catch(err => {
                 this.loading = false;
                 this.error = 'Unable to get the live streams at this time';
-                console.log(err);
             });
     }
 

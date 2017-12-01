@@ -13,7 +13,7 @@
         <h3>{{ stream.title || 'Untitled' }}</h3>
         <button mat-icon-button matTooltip="Click to copy the video id to the clipboard" (click)="electron.copyToClipboard(stream.vid)">ID</button>
         <button mat-icon-button matTooltip="Click to copy the video url to the clipboard" (click)="electron.copyToClipboard(videoURL)">URL</button>
-        <button mat-icon-button (click)="electron.openVideoPlayer(videoURL, stream.msgfile, stream.vtime)">
+        <button mat-icon-button (click)="electron.openVideoPlayer(stream.hlsvideosource, stream.msgfile, stream.vtime)">
             <mat-icon>play_arrow</mat-icon>
         </button>
         <!-- <button disabled mat-icon-button>

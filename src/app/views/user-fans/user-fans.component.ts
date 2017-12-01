@@ -36,7 +36,6 @@ export class UserFansComponent implements OnInit {
             })
             .catch(err => {
                 this.error = 'Unable to retrieve the user\'s fans at this time';
-                console.log(err);
             });
         });
 

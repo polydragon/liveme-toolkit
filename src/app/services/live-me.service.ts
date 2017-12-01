@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Live, User, UserExtended, Replay, ChatMessage, UserSearch, ReplaySearch } from '../models';
 import { Observable } from 'rxjs/Observable';
+import { ElectronService } from 'app/services/electron.service';
 
 @Injectable()
 export class LiveMeService {
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private electron: ElectronService
     ) { }
 
     private _httpGet(url) {
@@ -20,7 +22,8 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return (<User[]>(<any>result).data);
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getFans ${uid} ${page} ${pageSize}] Rejected from server: ${result.msg}`);
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
@@ -32,7 +35,8 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return (<User[]>(<any>result).data);
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getFollowing ${uid} ${page} ${pageSize}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');                    
                 }
             });
     }
@@ -63,7 +67,8 @@ export class LiveMeService {
                         big_face: u.user_info.big_face
                     };
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getUser ${uid}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
@@ -75,7 +80,8 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <Replay[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getUserReplays ${uid} ${page} ${pageSize}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
@@ -119,7 +125,8 @@ export class LiveMeService {
                     
                     return vid;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getReplay ${id}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
@@ -131,7 +138,8 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <UserSearch[]>result.data.data_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getUsernames ${search} ${page} ${pageSize}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
@@ -143,43 +151,47 @@ export class LiveMeService {
                 if (result.status == 200) {
                     return <ReplaySearch[]>result.data.data_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getHashtaggedReplays ${search} ${page} ${pageSize}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
 
-    public getLiveNew(): Promise<Live[]> {
+    public getLiveNew(page: number = 1, pageSize: number = 1): Promise<Live[]> {
         return this._httpGet(`https://live.ksmobile.net/live/newmaininfo`)
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getLiveNew ${page} ${pageSize}] Rejected from server: ${result.msg}`);                    
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
 
-    public getLiveFemale(): Promise<Live[]> {
+    public getLiveFemale(page: number = 1, pageSize: number = 1): Promise<Live[]> {
         return this._httpGet(`https://live.ksmobile.net/live/girls`)
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getLiveFemale ${page} ${pageSize}] Rejected from server: ${result.msg}`);                                        
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }
 
-    public getLiveMale(): Promise<Live[]> {
+    public getLiveMale(page: number = 1, pageSize: number = 1): Promise<Live[]> {
         return this._httpGet(`https://live.ksmobile.net/live/boys`)
             .toPromise()
             .then((result: any) => {
                 if (result.status == 200) {
                     return <Live[]>result.data.video_info;
                 } else {
-                    Promise.reject('api error, ' + (result.msg || 'unknown error'));
+                    this.electron.logger.warn(`[getLiveMale ${page} ${pageSize}] Rejected from server: ${result.msg}`);                                        
+                    throw 'api error: ' + (result.msg || 'unknown error');
                 }
             });
     }

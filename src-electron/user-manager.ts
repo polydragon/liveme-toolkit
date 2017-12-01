@@ -35,7 +35,7 @@ export class UserManager {
             JSON.stringify(Array.from(this.favourites)),
             (err) => {
                 if (err) {
-                    console.error("Couldn't save favourites!", err); // TODO: Logger
+                    (<any>global).Log.error(`Couldn't save favourites.json, error: ${err.message}`);                    
                 }
             });
     }
@@ -47,16 +47,20 @@ export class UserManager {
                 'utf8',
                 (err, data) => {
                     if (err) {
-                        console.error("Couldn't load favourites!", err); // TODO: Logger
-                        this.favourites = new Map<string, number>();
+                        (<any>global).Log.error(`Couldn't load favourites.json, error: ${err.message}`);
+                        this.favourites = new Map<string, {}>();
                         return resolve();
                     } else {
                         try {
-                            this.favourites = new Map<string, number>(JSON.parse(data));
+                            if (!data || data.length == 0) {
+                                this.favourites = new Map<string, {}>();
+                            } else {
+                                this.favourites = new Map<string, {}>(JSON.parse(data));
+                            }
                             return resolve();
                         } catch (er) {
-                            console.error("Malformed JSON in favourites.json", er); // TODO: Logger
-                            this.favourites = new Map<string, number>();
+                            (<any>global).Log.error(`Malformed json in favourites.json, error: ${err.message}`);                            
+                            this.favourites = new Map<string, {}>();
                             return resolve();
                         }
                     }
@@ -86,7 +90,7 @@ export class UserManager {
             JSON.stringify(Array.from(this.likes)),
             (err) => {
                 if (err) {
-                    console.error("Couldn't save likes!", err); // TODO: Logger
+                    (<any>global).Log.error(`Couldn't save likes.json, error: ${err.message}`);                            
                 }
             });
     }
@@ -98,16 +102,21 @@ export class UserManager {
                 'utf8',
                 (err, data) => {
                     if (err) {
-                        console.error("Couldn't load likes!", err); // TODO: Logger
-                        this.likes = new Map<string, number>();
+                        (<any>global).Log.error(`Couldn't load likes.json, error: ${err.message}`);                            
+                        this.likes = new Map<string, {}>();
                         return resolve();
                     } else {
                         try {
-                            this.likes = new Map<string, number>(JSON.parse(data));
+                            if (!data || data.length == 0) {
+                                this.likes = new Map<string, {}>();
+                            } else {
+                                this.likes = new Map<string, {}>(JSON.parse(data));
+                            }
+
                             return resolve();
                         } catch (er) {
-                            console.error("Malformed JSON in likes.json", er); // TODO: Logger
-                            this.likes = new Map<string, number>();
+                            (<any>global).Log.error(`Malformed json in likes.json, error: ${err.message}`);                            
+                            this.likes = new Map<string, {}>();
                             return resolve();
                         }
                     }
@@ -128,7 +137,7 @@ export class UserManager {
             JSON.stringify(Array.from(this.viewed)),
             (err) => {
                 if (err) {
-                    console.error("Couldn't save view history!", err); // TODO: Logger
+                    (<any>global).Log.error(`Couldn't save viewed.json, error: ${err.message}`);                            
                 }
             });
     }
@@ -140,15 +149,20 @@ export class UserManager {
                 'utf8',
                 (err, data) => {
                     if (err) {
-                        console.error("Couldn't load view history!", err); // TODO: Logger
+                        (<any>global).Log.error(`Couldn't load viewed.json, error: ${err.message}`);                            
                         this.viewed = new Map<string, number>();
                         return resolve();
                     } else {
                         try {
-                            this.viewed = new Map<string, number>(JSON.parse(data));
+                            if (!data || data.length == 0) {
+                                this.viewed = new Map<string, number>();
+                            } else {
+                                this.viewed = new Map<string, number>(JSON.parse(data));
+                            }
+
                             return resolve();
                         } catch (er) {
-                            console.error("Malformed JSON in viewed.json", er); // TODO: Logger
+                            (<any>global).Log.error(`Malformed json in viewed.json, error: ${err.message}`);                            
                             this.viewed = new Map<string, number>();
                             return resolve();
                         }

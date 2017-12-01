@@ -16,6 +16,6 @@ export class UserVideoComponent {
     ) { }
 
     get videoURL() {
-        return this.replay.videosource;
+        return this.replay.hlsvideosource;
     }
 }
