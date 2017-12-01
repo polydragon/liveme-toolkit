@@ -44,10 +44,20 @@
                 flex-wrap: nowrap;
                 user-select: none;
 
+                mat-icon.overlay {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    z-index: 0;
+                    pointer-events: none;
+                    opacity: 0.2;
+                }
+
                 aside, main {
                     display: flex;
                     flex-flow: row;
                     flex-wrap: nowrap;
+                    z-index: 100;
                 }
 
                 aside {

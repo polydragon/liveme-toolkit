@@ -2,6 +2,8 @@
 <main>
     <div class="cardList" *ngIf="fans">
         <mat-card *ngFor="let fan of fans" [hidden]="filter && !fan.uname.toLowerCase().startsWith(filter.toLowerCase())">
+            <mat-icon *ngIf="electron.isFavourite(fan.uid)" class="overlay" color="primary">favorite</mat-icon>
+            <mat-icon *ngIf="electron.isLiked(fan.uid)" class="overlay" color="primary">thumb_up</mat-icon>
             <aside>
                 <img [class.female]="fan.sex == 0" [class.male]="fan.sex == 1" src="{{ fan.face }}">
                 <div class="name">
