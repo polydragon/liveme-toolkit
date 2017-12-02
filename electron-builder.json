@@ -7,7 +7,7 @@
     "win": {
         "icon": "dist/favicon.ico",
         "target": [
-            "zip"
+            "portable"
         ]
     },
     "mac": {
@@ -26,5 +26,6 @@
         {
             "provider": "github"
         }
-    ]
+    ],
+    "artifactName": "LiveMe Toolkit-${version}-${os}.${ext}"
 }
