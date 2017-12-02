@@ -40,9 +40,7 @@ export class ElectronService {
     }
 
     get logger() {
-        //return this.zone.run(() => {
-            return this.electron.remote.getGlobal('Log');
-        //});
+        return this.electron.remote.getGlobal('Log');
     }
 
     /* Likes */

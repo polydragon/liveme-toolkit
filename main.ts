@@ -53,7 +53,8 @@ function createWindow() {
         minWidth: 800,
         height: 600,
         minHeight: 600,
-        frame: true
+        frame: true,
+        title: 'Live.me Toolkit'
     });
 
     windows.main.loadURL(`file://${__dirname}/index.html`);
@@ -104,7 +105,8 @@ function openFollowingWindow(uid: string, username: string) {
         //show: false,
         webPreferences: {
             webSecurity: false
-        }
+        },
+        title: 'Live.me Toolkit'
     });
 
     window.setMenu(null);
@@ -124,7 +126,8 @@ function openFansWindow(uid: string, username: string) {
         //show: false,
         webPreferences: {
             webSecurity: false
-        }
+        },
+        title: 'Live.me Toolkit'
     });
 
     window.setMenu(null);
@@ -150,7 +153,8 @@ function openVideoPlayer(video: string, chat: string, startTime: string) {
             //show: false,
             webPreferences: {
                 webSecurity: false
-            }
+            },
+            title: 'Live.me Toolkit'
         });
 
         windows.video.setMenu(null);

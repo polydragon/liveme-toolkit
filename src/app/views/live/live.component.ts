@@ -22,7 +22,7 @@ export class LiveComponent implements OnInit {
 
     ngOnInit() {
         this.loadStreams();
-        this.title.setTitle('Livestreams - Live.me Toolkit');
+        this.title.setTitle('Live Streams - Live.me Toolkit');
     }
 
     private getData() {
