@@ -1,4 +1,4 @@
-<mat-card *ngIf="replay" [class.new]="+isNew < +replay.vtime">
+<mat-card *ngIf="replay" [class.new]="+isNew < (+replay.vtime * 1000)">
     <section class="title">
         <h3><mat-icon class="live" matTooltip="Live now" *ngIf="replay.online == 1">fiber_manual_record</mat-icon>{{ replay.title || 'Untitled' }}</h3>
         <button mat-icon-button matTooltip="Click to copy the video id to the clipboard" (click)="electron.copyToClipboard(replay.vid)">ID</button>
