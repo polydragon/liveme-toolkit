@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ElectronService } from './services/electron.service';
@@ -26,6 +26,7 @@ import { LikesComponent } from './views/likes/likes.component';
 import { SettingsComponent } from './forms/settings/settings.component';
 import { LiveComponent } from './views/live/live.component';
 import { ReplayLiveComponent } from './components/replay-live/replay-live.component';
+import { DownloadService } from './services/download.service';
 
 @NgModule({
     declarations: [
@@ -55,11 +56,12 @@ import { ReplayLiveComponent } from './components/replay-live/replay-live.compon
         MomentModule,
 
         BrowserAnimationsModule,
-        MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
+        MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
     ],
     providers: [
         ElectronService,
-        LiveMeService
+        LiveMeService,
+        DownloadService
     ],
     bootstrap: [
         AppComponent

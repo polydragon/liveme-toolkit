@@ -11,6 +11,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     downloadPath: string;
     downloadFfmpeg: string;
     downloadHistory: boolean;
+    downloadChat: boolean;
     downloadtemplate: string;
     useTemplate: boolean;
     videoChat: boolean;
@@ -28,6 +29,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.downloadHistory = this.electron.settings.get('download.history');
         this.useTemplate = this.electron.settings.get('download.useTemplate');
         this.downloadtemplate = this.electron.settings.get('download.template');
+        this.downloadChat = this.electron.settings.get('download.chat');
         this.videoChat = this.electron.settings.get('video.chat');
 
         this.event = this.electron.events.subscribe((e) => {
@@ -47,6 +49,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.electron.settings.set('download.path', this.downloadPath);
         this.electron.settings.set('download.ffmpeg', this.downloadFfmpeg);
         this.electron.settings.set('download.history', this.downloadHistory);
+        this.electron.settings.set('download.chat', this.downloadChat);
         this.electron.settings.set('download.useTemplate', this.useTemplate);
         this.electron.settings.set('download.template', this.downloadtemplate);
         this.electron.settings.set('video.chat', this.videoChat);

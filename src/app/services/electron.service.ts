@@ -10,6 +10,15 @@ export class ElectronService {
     private _electron: Electron.AllElectron = null;
     events: EventEmitter<any> = new EventEmitter();
 
+    userManager;
+    settings;
+    logger;
+
+    path;
+    wget;
+    fs;
+    exec;
+
     constructor(
         private router: Router,
         private zone: NgZone
@@ -24,23 +33,18 @@ export class ElectronService {
                     this.events.emit(msg);
                 });
             });
+            
+            this.zone.run(() =>{
+                this.userManager = this.electron.remote.getGlobal('UserManager');
+                this.settings = this.electron.remote.getGlobal('Settings');;
+                this.logger = this.electron.remote.getGlobal('Log');
+
+                this.path = this.electron.remote.require('path');
+                this.wget = this.electron.remote.require('wget-improved');
+                this.fs = this.electron.remote.require('fs-extra');
+                this.exec = this.electron.remote.require('child_process').exec;
+            });
         }
-    }
-
-    get userManager() {
-        return this.zone.run(() => {
-            return this.electron.remote.getGlobal('UserManager');
-        });
-    }
-
-    get settings() {
-        return this.zone.run(() => {
-            return this.electron.remote.getGlobal('Settings');
-        });
-    }
-
-    get logger() {
-        return this.electron.remote.getGlobal('Log');
     }
 
     /* Likes */

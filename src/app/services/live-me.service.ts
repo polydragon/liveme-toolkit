@@ -113,6 +113,7 @@ export class LiveMeService {
         return this._httpGet(`http://live.ksmobile.net/live/queryinfo?userid=0&videoid=${id}`)
             .toPromise()
             .then((result: any) => {
+                console.log(result);
                 if (result.status == 200) {
                     if (!result.data.video_info.uname) {
                         return null;

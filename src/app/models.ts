@@ -1,3 +1,5 @@
+// todo: redo these and make more consistent
+
 export interface User {
     countryCode: string;
     level: number;

@@ -62,13 +62,14 @@ export class Settings {
     }
 
     setDefaults() {
-        this.set('version', '1');
+        this.set('version', '2');
 
         this.set('download.ffmpeg', 'ffmpeg');
         this.set('download.path', path.join(app.getPath('downloads'), 'LiveMe Toolkit'));
         this.set('download.useTemplate', false);
         this.set('download.template', '');
         this.set('download.history', true);
+        this.set('download.chat', false);
         this.set('video.chat', false);
 
         this.save();

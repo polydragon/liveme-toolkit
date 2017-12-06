@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ElectronService } from '../../services/electron.service';
 import { SettingsComponent } from 'app/forms/settings/settings.component';
 import { MatDialog } from '@angular/material';
+import { DownloadService } from 'app/services/download.service';
 
 @Component({
     selector: 'lmt-toolbar',
@@ -11,7 +12,8 @@ import { MatDialog } from '@angular/material';
 export class ToolbarComponent {
     constructor(
         public electron: ElectronService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        public download: DownloadService
     ) { }
 
     openSettings() {

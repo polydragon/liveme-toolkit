@@ -1,20 +1,61 @@
-:host {
+:host > div {
     background: white;
     width: 500px;
     height: 300px;
     display: block;
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 
-    header {
+    position: fixed;
+    top: 64px;
+    right: 15px;
+
+    div#header {
         padding: 4px;
         display: flex;
         flex-flow: row;
         flex-wrap: nowrap;
-        flex-direction: row-reverse;
         border-bottom: 1px solid rgba(black, 0.25);
+
+        .fill {
+            flex: 1 1 auto;
+        }
+    }
+
+    div#active {
+        display: flex;
+        flex-flow: column;
+        flex-wrap: nowrap;
+        padding: 10px;
+
+        div {
+            display: flex;
+            flex-flow: row;
+            flex-wrap: nowrap;
+
+            span {
+                display: block;
+                flex: 1 1 auto;
+                line-height: 30px;
+            }
+
+            small {
+                display: block;
+                line-height: 30px;
+            }
+        }
     }
 
     main {
+        article {
+            display: flex;
+            flex-flow: row;
+            flex-wrap: nowrap;
 
+            span {
+                flex: 1 1 auto;
+                line-height: 40px;
+                padding: 0 10px;
+            }
+        }
     }
 }

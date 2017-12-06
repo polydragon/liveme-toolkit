@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DownloadService } from 'app/services/download.service';
 
 @Component({
     selector: 'lmt-download-manager',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./download-manager.component.scss']
 })
 export class DownloadManagerComponent {
-    constructor() { }
+    constructor(
+        public download: DownloadService
+    ) { }
 }

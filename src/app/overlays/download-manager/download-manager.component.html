@@ -1,6 +1,23 @@
-<header>
-    <button>pause</button>
-</header>
-<main>
-    downloads go here
-</main>
+<div *ngIf="download.isVisible">
+    <div id="header">
+        <div class="fill"></div>
+        <button mat-icon-button>
+            <mat-icon>pause</mat-icon>
+        </button>
+    </div>
+    <div id="active" *ngIf="download.ACTIVE">
+        <div>
+            <span>{{ download.ACTIVE.username }}: {{ download.ACTIVE.videotitle || download.ACTIVE.videoid }}</span>
+            <small>{{ download.ACTIVE.status }}</small>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="download.ACTIVE.progress"></mat-progress-bar>
+    </div>
+    <main>
+        <article *ngFor="let q of download.QUEUE">
+            <span>{{ q.username }}: {{ q.videotitle || q.videoid }}</span>
+            <button mat-icon-button>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </article>
+    </main>
+</div>

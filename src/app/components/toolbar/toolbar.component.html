@@ -9,7 +9,7 @@
     <button mat-icon-button (click)="openSettings()">
         <mat-icon>settings</mat-icon>
     </button>
-    <button mat-icon-button disabled>
+    <button mat-icon-button (click)="download.isVisible = !download.isVisible">
         <mat-icon>file_download</mat-icon>
     </button>
 </mat-toolbar>

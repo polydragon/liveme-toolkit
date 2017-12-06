@@ -6,7 +6,7 @@
         <button mat-icon-button (click)="electron.openVideoPlayer(videoURL, replay.msgfile, replay.vtime)">
             <mat-icon>play_arrow</mat-icon>
         </button>
-        <button disabled mat-icon-button>
+        <button mat-icon-button (click)="download.addToQueue({ userid: '0', username: '0', videoid: replay.vid, videotitle: replay.title, videotime: replay.vtime, m3u8: videoURL })">
             <mat-icon>file_download</mat-icon>
         </button>
     </section>
