@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Live } from 'app/models';
 import { LiveMeService } from 'app/services/live-me.service';
 import { Title } from '@angular/platform-browser';
+import { ElectronService } from 'app/services/electron.service';
 
 @Component({
     selector: 'lmt-live',
@@ -9,15 +10,15 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['./live.component.scss']
 })
 export class LiveComponent implements OnInit {
-    type: string = 'live';
-    newType: string = 'live';
     loading: boolean = false;
     error: string;
     streams: Live[] = [];
+    tabIndex: number = 0;
 
     constructor(
         private liveme: LiveMeService,
-        private title: Title
+        private title: Title,
+        public electron: ElectronService
     ) { }
 
     ngOnInit() {
@@ -25,16 +26,21 @@ export class LiveComponent implements OnInit {
         this.title.setTitle('Live Streams - Live.me Toolkit');
     }
 
+    set(index: number) {
+        this.tabIndex = index;
+        this.loadStreams();
+    }
+
     private getData() {
-        switch (this.type) {
+        switch (this.tabIndex) {
             default:
-            case 'live':
+            case 0:
                 return this.liveme.getLiveNew();
 
-            case 'male':
+            case 1:
                 return this.liveme.getLiveMale();
 
-            case 'female':
+            case 2:
                 return this.liveme.getLiveFemale();
         }
     }
@@ -53,10 +59,5 @@ export class LiveComponent implements OnInit {
                 this.loading = false;
                 this.error = 'Unable to get the live streams at this time';
             });
-    }
-
-    onChanged() {
-        this.type = this.newType;
-        this.loadStreams();
     }
 }

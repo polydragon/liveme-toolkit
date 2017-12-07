@@ -53,7 +53,45 @@
         </div>
     </aside>
     <main>
-        <lmt-user-video *ngFor="let replay of replays" [replay]="replay" [isNew]="user.lastViewed"></lmt-user-video>
+        <mat-card *ngFor="let replay of replays" [class.new]="user.lastViewed < (+replay.vtime * 1000)">
+            <section class="title">
+                <h3>
+                    <mat-icon class="live" matTooltip="Live now" *ngIf="replay.online == 1">fiber_manual_record</mat-icon>
+                    {{ replay.title || 'Untitled' }}
+                </h3>
+                <button mat-icon-button matTooltip="Click to copy the replay id to the clipboard" (click)="electron.copyToClipboard(replay.vid)">ID</button>
+                <button mat-icon-button matTooltip="Click to copy the replay url to the clipboard" (click)="electron.copyToClipboard(replay.hlsvideosource)">URL</button>
+                <button mat-icon-button (click)="electron.openVideoPlayer(replay.hlsvideosource, replay.msgfile, replay.vtime)">
+                    <mat-icon>play_arrow</mat-icon>
+                </button>
+                <button [disabled]="replay.online == 1" mat-icon-button (click)="download.addToQueue({ userid: user.uid, username: user.uname, videoid: replay.vid, videotitle: replay.title, videotime: replay.vtime, m3u8: replay.hlsvideosource })">
+                    <mat-icon>file_download</mat-icon>
+                </button>
+            </section>
+            <section class="info">
+                <div class="numberBlock">
+                    <span class="number" matTooltip="{{ replay.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ replay.vtime | amFromUnix | amTimeAgo }}</span>
+                    <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>
+                </div>
+                <div class="numberBlock">
+                    <span class="number">{{ replay.videolength | duration }}</span>
+                    <span class="label">length</span>
+                </div>
+                <div class="numberBlock">
+                    <span class="number">{{ replay.watchnumber | number }}</span>
+                    <span class="label">views</span>
+                </div>
+                <div class="numberBlock">
+                    <span class="number">{{ replay.likenum | number }}</span>
+                    <span class="label">likes</span>
+                </div>
+                <div class="numberBlock">
+                    <span class="number">{{ replay.sharenum | number }}</span>
+                    <span class="label">shares</span>
+                </div>
+            </section>
+        </mat-card>
+
         <div class="error" *ngIf="replays && replays.length == 0">No replays were found for this user</div>
         <div class="loading" *ngIf="!replays && !replayError">
             <mat-spinner></mat-spinner>

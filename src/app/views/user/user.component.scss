@@ -7,7 +7,7 @@
         user-select: none;
     }
 
-    section {
+    > section {
         display: flex;
         flex-flow: row;
         flex-wrap: nowrap;
@@ -76,7 +76,7 @@
             }
         }
 
-        main {
+        > main {
             flex-grow: 1;
             flex-shrink: 1;
             position: relative;
@@ -84,6 +84,78 @@
             padding-bottom: 0px;
             overflow-x: hidden;
             overflow-y: scroll;
+
+            mat-card.new {
+                background: rgb(255, 252, 220);
+            }
+        
+            mat-card.downloaded {
+                background: rgb(224, 255, 220);
+            }
+        
+            mat-card {
+                padding: 10px;
+                padding-top: 5px;
+                margin-bottom: 10px;
+        
+                section {
+                    display: flex;
+                    flex-flow: row;
+                    flex-wrap: nowrap;
+        
+                    div.numberBlock {
+                        padding: 10px;
+                        padding-bottom: 0;
+                        display: inline-block;
+            
+                        > span.number {
+                            display: block;
+                            font-size: 12pt;
+                            text-align: center;
+                        }
+            
+                        > span.label {
+                            display: block;
+                            text-align: center;
+                            opacity: 0.6;
+                            user-select: none;
+                        }
+                    }
+                }
+        
+                section.title {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+        
+                    mat-icon.live {
+                        font-size: 12px;
+                        color: red;
+                        cursor: default;
+                    }
+                }
+        
+                section.title, section.title h3 {
+                    height: 45px;
+                    line-height: 45px;
+                }
+        
+                section.title h3 {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    padding-left: 5px;
+                }
+        
+                section.info {
+                    div {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                    }
+                }
+                
+                abbr {
+                    text-decoration: none;
+                }
+            }
         }
     }
 }

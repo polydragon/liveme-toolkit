@@ -4,10 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ElectronService } from '../../services/electron.service';
 import { UserExtended, Replay } from '../../models';
-import { Router } from '@angular/router';
-import 'rxjs/Rx';
-import { ChangeDetectorRef } from '@angular/core';
-import { NgZone } from '@angular/core';
+import { DownloadService } from 'app/services/download.service';
 
 @Component({
     selector: 'lmt-user-view',
@@ -26,11 +23,9 @@ export class UserComponent implements OnInit, OnDestroy {
     constructor(
         private title: Title,
         private route: ActivatedRoute,
-        private router: Router,
         private liveme: LiveMeService,
         public electron: ElectronService,
-        private changeDetector: ChangeDetectorRef,
-        private zone: NgZone
+        public download: DownloadService
     ) { }
 
     ngOnInit() {
