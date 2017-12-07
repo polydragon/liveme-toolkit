@@ -53,6 +53,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.electron.settings.set('download.useTemplate', this.useTemplate);
         this.electron.settings.set('download.template', this.downloadtemplate);
         this.electron.settings.set('video.chat', this.videoChat);
+        this.electron.settings.save();
         this.dialogRef.close();
     }
 

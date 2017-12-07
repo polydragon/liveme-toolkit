@@ -1,8 +1,8 @@
-<div *ngIf="download.isVisible">
+<div @downloaderAnim *ngIf="download.isVisible">
     <div id="header">
         <div class="fill"></div>
-        <button mat-icon-button>
-            <mat-icon>pause</mat-icon>
+        <button mat-icon-button (click)="download.togglePaused()">
+            <mat-icon>{{ download.isPaused ? 'play_arrow' : 'pause' }}</mat-icon>
         </button>
     </div>
     <div id="active" *ngIf="download.ACTIVE">
@@ -13,11 +13,12 @@
         <mat-progress-bar mode="determinate" [value]="download.ACTIVE.progress"></mat-progress-bar>
     </div>
     <main>
-        <article *ngFor="let q of download.QUEUE">
+        <article *ngFor="let q of download.QUEUE; let i = index" @downloaderItemAnim>
             <span>{{ q.username }}: {{ q.videotitle || q.videoid }}</span>
-            <button mat-icon-button>
-                <mat-icon>cancel</mat-icon>
+            <button mat-icon-button (click)="download.removeFromQueueIndex(i)">
+                <mat-icon>close</mat-icon>
             </button>
         </article>
+        <span class="noDownloads" *ngIf="download.QUEUE.length == 0">no replays queued for download</span>
     </main>
 </div>

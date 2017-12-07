@@ -28,6 +28,10 @@
     img.male {
         border-color: skyblue !important;
     }
+
+    lmt-download-manager > div {
+        @include mat-elevation(6);
+    }
 }
 
 @include mat-core();

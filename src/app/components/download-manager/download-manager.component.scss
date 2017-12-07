@@ -3,8 +3,6 @@
     width: 500px;
     height: 300px;
     display: block;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-
     position: fixed;
     top: 64px;
     right: 15px;
@@ -46,6 +44,8 @@
     }
 
     main {
+        overflow: hidden;
+        
         article {
             display: flex;
             flex-flow: row;
@@ -56,6 +56,14 @@
                 line-height: 40px;
                 padding: 0 10px;
             }
+        }
+
+        span.noDownloads {
+            text-align: center;
+            display: block;
+            padding: 50px;
+            opacity: 0.6;
+            user-select: none;
         }
     }
 }

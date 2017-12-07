@@ -47,8 +47,17 @@ export class DownloadService {
         this.loop();
     }
 
-    removeFromQueue(p: Playlist) {
-        //this.QUEUE.delete(p.videoid);
+    removeFromQueueIndex(index: number) {
+        this.QUEUE.splice(index, 1);
+    }
+
+    togglePaused() {
+        if (this.isPaused) {
+            this.isPaused = false;
+            this.loop();
+        } else {
+            this.isPaused = true;
+        }
     }
 
     async loop() {
