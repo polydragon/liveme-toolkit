@@ -25,21 +25,13 @@
         flex-wrap: nowrap;
         padding: 10px;
 
-        div {
-            display: flex;
-            flex-flow: row;
-            flex-wrap: nowrap;
+        span {
+            display: block;
+            flex: 1 1 auto;
+        }
 
-            span {
-                display: block;
-                flex: 1 1 auto;
-                line-height: 30px;
-            }
-
-            small {
-                display: block;
-                line-height: 30px;
-            }
+        small {
+            display: block;
         }
     }
 
@@ -65,5 +57,14 @@
             opacity: 0.6;
             user-select: none;
         }
+    }
+
+    span.notReady {
+        padding: 50px;
+        display: block;
+        text-align: center;
+        color: darkred;
+        user-select: none;
+        opacity: 0.75;
     }
 }

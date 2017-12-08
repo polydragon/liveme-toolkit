@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DownloadService } from 'app/services/download.service';
 import { downloaderAnim, downloaderItemAnim } from 'app/animations';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'lmt-download-manager',
@@ -8,8 +9,17 @@ import { downloaderAnim, downloaderItemAnim } from 'app/animations';
     styleUrls: ['./download-manager.component.scss'],
     animations: [ downloaderAnim, downloaderItemAnim ]
 })
-export class DownloadManagerComponent {
+export class DownloadManagerComponent implements OnInit {
     constructor(
-        public download: DownloadService
+        public download: DownloadService,
+        private changeDetector: ChangeDetectorRef
     ) { }
+
+    ngOnInit() {
+        setInterval(() => {
+            if (this.download.ACTIVE) {
+                this.changeDetector.detectChanges();
+            }
+        }, 1000);
+    }
 }

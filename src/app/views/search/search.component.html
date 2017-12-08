@@ -3,7 +3,7 @@
 
 <main>
     <div class="cardList hashtagSearch" *ngIf="!error && replays">
-        <mat-card *ngFor="let replay of replays">
+        <mat-card *ngFor="let replay of replays" [class.downloaded]="download.wasDownloaded(replay.vid)">
             <section class="buttons">
                 <img [class.female]="replay.sex == 0" [class.male]="replay.sex == 1" src="{{ replay.uface }}">
                 <div class="name">
@@ -24,7 +24,7 @@
                 <button mat-icon-button (click)="electron.openVideoPlayer(replay.hlsvideosource, replay.msgfile, replay.vtime)">
                     <mat-icon>play_arrow</mat-icon>
                 </button>
-                <button [disabled]="replay.online == 1" disabled mat-icon-button>
+                <button [disabled]="replay.online == 1 || !download.isReady" (click)="download.addToQueue({ userid: replay.userid, username: replay.uname, videoid: replay.vid, videotitle: replay.title, videotime: replay.vtime, m3u8: replay.hlsvideosource })" mat-icon-button>
                     <mat-icon>file_download</mat-icon>
                 </button>
             </section>

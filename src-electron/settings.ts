@@ -74,4 +74,12 @@ export class Settings {
 
         this.save();
     }
+
+    getPath(p: string) {
+        return app.getPath(p);
+    }
+
+    getPathFile(p: string, ...files: string[]) {
+        return path.join(app.getPath(p), ...files);
+    }
 }

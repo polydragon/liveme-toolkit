@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ElectronService } from 'app/services/electron.service';
 import { MatDialogRef } from '@angular/material';
+import { DownloadService } from 'app/services/download.service';
 
 @Component({
     selector: 'lmt-settings',
@@ -16,11 +17,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
     useTemplate: boolean;
     videoChat: boolean;
 
+    ffmpegCheck: number = 0;
     event;
 
     constructor(
         private dialogRef: MatDialogRef<SettingsComponent>,
-        public electron: ElectronService
+        public electron: ElectronService,
+        private download: DownloadService
     ) { }
 
     ngOnInit() {
@@ -35,8 +38,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.event = this.electron.events.subscribe((e) => {
             if (e.event == 'openDirectoryResult' && e.uid == 'settingsDownloadPath') {
                 this.downloadPath = e.result;
+                this.electron.settings.set('download.path', this.downloadPath);
+                this.electron.settings.save();
             } else if (e.event == 'openFileResult' && e.uid == 'settingsFfmpegPath') {
                 this.downloadFfmpeg = e.result;
+                this.electron.settings.set('download.ffmpeg', this.downloadFfmpeg);
+                this.electron.settings.save();
             }
         });
     }
@@ -58,7 +65,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
 
     checkFfmpeg() {
-        // NYI
+        this.download.checkFfmpeg().then(() => {
+            this.ffmpegCheck = 1;
+        }).catch(err => {
+            this.ffmpegCheck = -1;
+        });
     }
 
     browseDownload() {

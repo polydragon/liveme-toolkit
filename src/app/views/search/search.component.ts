@@ -4,6 +4,7 @@ import { User, Replay, UserSearch, ReplaySearch } from '../../models';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ElectronService } from 'app/services/electron.service';
+import { DownloadService } from 'app/services/download.service';
 
 @Component({
     selector: 'app-search',
@@ -24,7 +25,8 @@ export class SearchComponent implements OnInit {
         private liveme: LiveMeService,
         private router: Router,
         private title: Title,
-        public electron: ElectronService
+        public electron: ElectronService,
+        public download: DownloadService
     ) { }
 
     ngOnInit() {

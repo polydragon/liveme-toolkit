@@ -4,7 +4,6 @@ import * as fs from 'fs-extra';
 
 import { UserManager } from './src-electron/user-manager';
 import { Settings } from './src-electron/settings';
-import { DownloadManager } from './src-electron/download-manager';
 
 const log = require('electron-log');
 
@@ -57,7 +56,7 @@ function createWindow() {
         title: 'Live.me Toolkit'
     });
 
-    windows.main.loadURL(`file://${__dirname}/index.html`);
+    windows.main.loadURL(`file://${__dirname}/index.html#/?downloader=1`);
     windows.main.setMenu(null);
 
     if (serve) {
@@ -216,12 +215,10 @@ function initFs() {
     (<any>global).Log = log;
     (<any>global).Settings = new Settings();
     (<any>global).UserManager = new UserManager();
-    (<any>global).DownloadManager = new DownloadManager();
 
     (<any>global)
         .Settings.load()
         .then(() => {
             (<any>global).UserManager.load();
-            (<any>global).DownloadManager.load();
         });
 }

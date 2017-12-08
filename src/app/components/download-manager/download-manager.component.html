@@ -1,24 +1,25 @@
 <div @downloaderAnim *ngIf="download.isVisible">
-    <div id="header">
+    <div id="header" *ngIf="download.isReady">
         <div class="fill"></div>
         <button mat-icon-button (click)="download.togglePaused()">
             <mat-icon>{{ download.isPaused ? 'play_arrow' : 'pause' }}</mat-icon>
         </button>
     </div>
     <div id="active" *ngIf="download.ACTIVE">
-        <div>
-            <span>{{ download.ACTIVE.username }}: {{ download.ACTIVE.videotitle || download.ACTIVE.videoid }}</span>
-            <small>{{ download.ACTIVE.status }}</small>
-        </div>
+        <span>{{ download.ACTIVE.username }} | {{ download.ACTIVE.videotitle || download.ACTIVE.videoid }}</span>
+        <small>{{ download.ACTIVE.status }}</small>
         <mat-progress-bar mode="determinate" [value]="download.ACTIVE.progress"></mat-progress-bar>
     </div>
-    <main>
+    <main *ngIf="download.isReady">
         <article *ngFor="let q of download.QUEUE; let i = index" @downloaderItemAnim>
             <span>{{ q.username }}: {{ q.videotitle || q.videoid }}</span>
             <button mat-icon-button (click)="download.removeFromQueueIndex(i)">
                 <mat-icon>close</mat-icon>
             </button>
         </article>
-        <span class="noDownloads" *ngIf="download.QUEUE.length == 0">no replays queued for download</span>
+        <span class="noDownloads" *ngIf="download.QUEUE.length == 0 && !download.ACTIVE">no replays queued for download</span>
     </main>
+    <span class="notReady" *ngIf="!download.isReady">
+        you have not correctly set up ffmpeg in the settings, you will be unable to download replays. if you are sure you have it set up correctly, make sure you press the 'check ffmpeg' button in the settings
+    </span>
 </div>
