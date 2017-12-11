@@ -48,6 +48,10 @@ export class DownloadService {
         this.checkFfmpeg().catch(err => {}); // stop the bitching it's already logged
     }
 
+    isInQueue(vid: string) {
+        return this.QUEUE.findIndex(i => i.videoid == vid) != -1;
+    }
+
     wasDownloaded(id: string) {
         return this.downloadHistory.indexOf(id) != -1;
     }
