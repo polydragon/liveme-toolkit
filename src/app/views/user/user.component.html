@@ -2,7 +2,7 @@
 
 <section *ngIf="user">
     <aside class="bg">
-        <h3>{{ user.uname }}</h3>
+        <button mat-button matTooltip="Click to copy the username to the clipboard" (click)="electron.copyToClipboard(user.uname)">{{ user.uname }}</button>
         <button mat-button matTooltip="Click to copy the user id to the clipboard" (click)="electron.copyToClipboard(user.uid)">{{ user.uid }}</button>
         <img [src]="user.face" [class.female]="user.sex == 0" [class.male]="user.sex == 1">
 
