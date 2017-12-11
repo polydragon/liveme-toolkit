@@ -56,7 +56,7 @@ export interface Replay {
     videolength: number;
     videosize: number;
     videosource: string;
-    vtime: string;
+    vtime: number;
     watchnumber: number;
 }
 

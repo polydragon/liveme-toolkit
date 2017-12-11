@@ -53,6 +53,14 @@
         </div>
     </aside>
     <main>
+        <mat-menu #sortMenu="matMenu">
+            <button mat-menu-item *ngFor="let type of sortTypes" [class.active]="type == sortType" (click)="setSort(type)">{{ type }}</button>
+        </mat-menu>
+
+        <header *ngIf="replays && replays.length > 0">
+            <button mat-button [matMenuTriggerFor]="sortMenu">SORT BY</button>
+        </header>
+
         <mat-card *ngFor="let replay of replays" [class.new]="user.lastViewed < (+replay.vtime * 1000)" [class.downloaded]="download.wasDownloaded(replay.vid)">
             <section class="title">
                 <h3>

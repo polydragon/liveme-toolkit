@@ -20,6 +20,14 @@ export class UserComponent implements OnInit, OnDestroy {
     userError: string;
     replayError: string;
 
+    sortType = 'Newest';
+    sortTypes = [
+        'Newest',
+        'Views',
+        'Likes',
+        'Shares'
+    ];
+
     constructor(
         private title: Title,
         private route: ActivatedRoute,
@@ -32,6 +40,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             this.user = null;
             this.replays = null;
+            this.sortType = 'Newest';
             this.title.setTitle(`Looking up user info - Live.me Toolkit`);
 
             this.liveme
@@ -80,6 +89,37 @@ export class UserComponent implements OnInit, OnDestroy {
             this.electron.removeLike(this.user.uid);
         } else {
             this.electron.addLike(this.user.uid, this.user.face, this.user.sex, this.user.uname);
+        }
+    }
+
+    setSort(type: string) {
+        this.sortType = type;
+
+        switch (this.sortType) {
+            default:
+            case 'Newest':
+                this.replays.sort((a, b) => {
+                    return b.vtime - a.vtime;
+                });
+                break;
+
+            case 'Views':
+                this.replays.sort((a, b) => {
+                    return b.playnumber - a.playnumber;
+                });
+                break;
+
+            case 'Likes':
+                this.replays.sort((a, b) => {
+                    return b.likenum - a.likenum;
+                });
+                break;
+
+            case 'Shares':
+                this.replays.sort((a, b) => {
+                    return b.sharenum - a.sharenum;
+                });
+                break;
         }
     }
 }

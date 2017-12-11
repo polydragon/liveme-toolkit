@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule, MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatMenuModule, MatTabsModule, MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ElectronService } from './services/electron.service';
@@ -50,7 +50,7 @@ import { DownloadService } from './services/download.service';
         MomentModule,
 
         BrowserAnimationsModule,
-        MatTabsModule, MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
+        MatMenuModule, MatTabsModule, MatProgressBarModule, MatButtonToggleModule, MatSlideToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule
     ],
     providers: [
         ElectronService,

@@ -85,6 +85,18 @@
             overflow-x: hidden;
             overflow-y: scroll;
 
+            > header {
+                margin: -10px;
+                margin-bottom: 10px;
+                padding: 5px;
+                display: flex;
+                flex-flow: row;
+                flex-wrap: nowrap;
+                flex-direction: row-reverse;
+                background: rgba(white, 0.4);
+                border-bottom: 1px solid rgba(black, 0.2);
+            }
+
             mat-card.new {
                 background: rgb(255, 252, 220);
             }
@@ -158,4 +170,9 @@
             }
         }
     }
+}
+
+button.mat-menu-item.active {
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.075);
 }
