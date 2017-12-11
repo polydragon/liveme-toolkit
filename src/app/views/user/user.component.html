@@ -77,6 +77,9 @@
                 </button>
             </section>
             <section class="info">
+                <div class="center">
+                    <mat-icon matTooltip="This replay may have issues being played" *ngIf="isCorruptReplay(replay.hlsvideosource)">warning</mat-icon>                        
+                </div>
                 <div class="numberBlock">
                     <span class="number" matTooltip="{{ replay.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ replay.vtime | amFromUnix | amTimeAgo }}</span>
                     <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>

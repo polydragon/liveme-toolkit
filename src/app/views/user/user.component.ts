@@ -122,4 +122,8 @@ export class UserComponent implements OnInit, OnDestroy {
                 break;
         }
     }
+
+    isCorruptReplay(url) {
+        return url.indexOf('myqcloud') != -1;
+    }
 }
