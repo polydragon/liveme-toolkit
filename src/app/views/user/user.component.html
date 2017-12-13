@@ -72,7 +72,7 @@
                 <button mat-icon-button (click)="electron.openVideoPlayer(replay.hlsvideosource, replay.msgfile, replay.vtime)">
                     <mat-icon>play_arrow</mat-icon>
                 </button>
-                <button [disabled]="replay.online == 1 || !download.isReady || download.isInQueue(replay.vid)" mat-icon-button (click)="download.addToQueue({ userid: user.uid, username: user.uname, videoid: replay.vid, videotitle: replay.title, videotime: replay.vtime, m3u8: replay.hlsvideosource })">
+                <button [disabled]="replay.online == 1 || !download.isReady || download.isInQueue(replay.vid)" mat-icon-button (click)="download.addFromUser(user, replay)">
                     <mat-icon>file_download</mat-icon>
                 </button>
             </section>

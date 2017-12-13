@@ -2,9 +2,12 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ElectronService } from 'app/services/electron.service';
 
+import * as formatDuration from 'format-duration';
 import * as pProgress from 'p-progress';
 import * as pMap from 'p-map';
 import * as sanitizeFilename from 'sanitize-filename';
+import { Replay, ReplaySearch, User } from 'app/models';
+import { LiveMeService } from 'app/services/live-me.service';
 
 export interface Playlist {
     userid: string;
@@ -18,6 +21,9 @@ export interface Playlist {
     downloadedChunks?: number;
     totalChunks?: number;
     status?: string;
+
+    destination?: string;
+    chat?: string;
 
     chunkProgress?: Map<string, number>;
 }
@@ -38,14 +44,15 @@ export class DownloadService {
 
     constructor(
         private http: HttpClient,
-        private electron: ElectronService
+        private electron: ElectronService,
+        private liveme: LiveMeService
     ) { }
 
     onInit() {
         this.loadHistory();
         this.loadQueue();
 
-        this.checkFfmpeg().catch(err => {}); // stop the bitching it's already logged
+        this.checkFfmpeg().catch(err => { }); // stop the bitching it's already logged
     }
 
     isInQueue(vid: string) {
@@ -85,6 +92,36 @@ export class DownloadService {
                 }
             });
         });
+    }
+
+    addFromUser(user: User, replay: Replay) {
+        let playlist: Playlist = {
+            userid: user.uid,
+            username: user.uname,
+            videoid: replay.vid,
+            videotime: replay.vtime,
+            videotitle: replay.title || 'Untitled',
+            m3u8: replay.hlsvideosource,
+            status: 'queued',
+            chat: replay.msgfile
+        };
+
+        this.addToQueue(playlist);
+    }
+
+    addFromSearch(replay: ReplaySearch) {
+        let playlist: Playlist = {
+            userid: replay.userid,
+            username: replay.uname,
+            videoid: replay.vid,
+            videotime: replay.vtime,
+            videotitle: replay.title || 'Untitled',
+            m3u8: replay.hlsvideosource,
+            status: 'queued',
+            chat: replay.msgfile
+        };
+
+        this.addToQueue(playlist);
     }
 
     addToQueue(p: Playlist) {
@@ -199,14 +236,14 @@ export class DownloadService {
     private _mergeFiles(files: string[]): Promise<void> {
         return new Promise((resolve, reject) => {
             this.ACTIVE.status = 'merging chunks...';
-            let destination = this._getFinalFile();
+            this.ACTIVE.destination = this._getFinalFile();
 
             if (files.length == 1) {
-                if (this.electron.fs.existsSync(destination)) {
-                    this.electron.fs.removeSync(destination);
+                if (this.electron.fs.existsSync(this.ACTIVE.destination)) {
+                    this.electron.fs.removeSync(this.ACTIVE.destination);
                 }
 
-                this.electron.fs.moveSync(files[0], destination);
+                this.electron.fs.moveSync(files[0], this.ACTIVE.destination);
                 return resolve();
             }
 
@@ -226,9 +263,9 @@ export class DownloadService {
             let ffmpeg = this.FFMPEG_COMMAND
                 .replace('{FFMPEG}', fmpeg)
                 .replace('{CONCAT}', concatPath)
-                .replace('{DEST}', destination);
+                .replace('{DEST}', this.ACTIVE.destination);
 
-            this.electron.fs.ensureDirSync(this.electron.path.dirname(destination));
+            this.electron.fs.ensureDirSync(this.electron.path.dirname(this.ACTIVE.destination));
 
             this.electron.exec(ffmpeg, (error, stdout, stderr) => {
                 if (error) return reject(error);
@@ -249,12 +286,33 @@ export class DownloadService {
             })
             .then(localFiles => this._mergeFiles(localFiles))
             .then(() => this._cleanupTempFiles())
+            .then(() => this._downloadChat())
             .then((): Promise<void> => {
                 return new Promise((resolve, reject) => {
                     this.setDownloaded(this.ACTIVE.videoid);
                     resolve();
                 })
             });
+    }
+
+    private _downloadChat(): Promise<void> {
+        if (this.electron.settings.get('download.chat')) {
+            this.ACTIVE.status = 'downloading chat messages';
+            
+            return this.liveme.getChatMessages(this.ACTIVE.chat)
+                .then(messages => {
+                    let finalString = `## Chat log of ${this.ACTIVE.videoid}`;
+
+                    for (let msg of <any[]>messages) {
+                        let timestamp = formatDuration(Math.floor((msg.timestamp / 1000) - this.ACTIVE.videotime) * 1000);
+                        finalString += `\r\n[${timestamp}] [${msg.content.user.name}] ${msg.content.content}`;
+                    }
+
+                    this.electron.fs.writeFileSync(this.ACTIVE.destination.replace('.mp4', '.txt'), finalString);
+                });
+        } else {
+            return Promise.resolve();
+        }
     }
 
     private _cleanupTempFiles(): Promise<void> {
