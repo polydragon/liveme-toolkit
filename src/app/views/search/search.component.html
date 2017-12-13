@@ -38,7 +38,7 @@
                     <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>
                 </div>
                 <div class="numberBlock">
-                    <span class="number">{{ replay.videolength | duration }}</span>
+                    <span class="number">{{ replay.videolength * 1000 | duration }}</span>
                     <span class="label">length</span>
                 </div>
                 <div class="numberBlock">
