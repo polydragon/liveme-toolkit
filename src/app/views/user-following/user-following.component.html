@@ -8,6 +8,7 @@
                 <img [class.female]="follow.sex == 0" [class.male]="follow.sex == 1" src="{{ follow.face }}">
                 <div class="name">
                     <span>{{ follow.uname }}</span>
+                    <small class="country">{{ follow.countryCode }}</small>                    
                     <small *ngIf="electron.lastViewed(follow.uid) != -1">last viewed {{ electron.lastViewed(follow.uid) | amTimeAgo }}</small>
                 </div>
             </aside>

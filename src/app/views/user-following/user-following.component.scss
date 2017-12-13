@@ -82,13 +82,17 @@
                         }
 
                         span {
-                            height: 30px;
+                            height: 27px;
                             line-height: 30px;
                         }
 
                         small {
                             line-height: 10px;
                             height: 10px;
+                        }
+
+                        small.country {
+                            height: 14px;
                         }
                     }
                 }

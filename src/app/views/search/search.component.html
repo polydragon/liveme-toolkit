@@ -30,6 +30,10 @@
             </section>
             <section class="info">
                 <div class="numberBlock">
+                    <span class="number">{{ replay.countryCode }}</span>
+                    <span class="label">country</span>
+                </div>
+                <div class="numberBlock">
                     <span class="number" matTooltip="{{ replay.vtime | amFromUnix | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}">{{ replay.vtime | amFromUnix | amTimeAgo }}</span>
                     <span class="label">{{ replay.online == 1 ? 'started' : 'streamed' }}</span>
                 </div>
@@ -58,7 +62,7 @@
             <aside>
                 <img [class.female]="user.sex == 0" [class.male]="user.sex == 1" src="{{ user.face }}">
                 <div class="name">
-                    <span>{{ user.nickname }}</span>
+                    <span>{{ user.nickname }}</span>             
                     <small *ngIf="electron.lastViewed(user.user_id) != -1">last viewed {{ electron.lastViewed(user.user_id) | amTimeAgo }}</small>
                 </div>
             </aside>
