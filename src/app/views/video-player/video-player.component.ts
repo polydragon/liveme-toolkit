@@ -63,6 +63,6 @@ export class VideoPlayerComponent implements OnInit {
     }
 
     getMessageTimeOffset(time) {
-        return 0; // TODO
+        return Math.floor((time / 1000) - this.startTime) * 1000;
     }
 }
