@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, dialog, Menu } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 
@@ -88,7 +88,7 @@ try {
     });
 
 } catch (e) {
-    (<any>global).Log.error(e);                                
+    (<any>global).Log.error(e);
 }
 
 function openProfile(uid: string) {
@@ -222,3 +222,28 @@ function initFs() {
             (<any>global).UserManager.load();
         });
 }
+
+/* Menus */
+
+app.on('browser-window-created', (event, window) => {
+    window.webContents.on('context-menu', (e, props) => {
+        const InputMenu = Menu.buildFromTemplate([
+            {
+                label: 'Cut',
+                role: 'cut',
+            }, {
+                label: 'Copy',
+                role: 'copy',
+            }, {
+                label: 'Paste',
+                role: 'paste',
+            }
+        ]);
+
+        const { inputFieldType } = props;
+
+        if (inputFieldType === 'plainText') {
+            InputMenu.popup(window);
+        }
+    });
+});
