@@ -44,6 +44,7 @@
         "core-js": "2.4.1",
         "electron-log": "^2.2.11",
         "enhanced-resolve": "3.3.0",
+        "format-duration": "^1.0.0",
         "fs-extra": "^4.0.2",
         "hls.js": "^0.8.7",
         "p-map": "^1.2.0",
