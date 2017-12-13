@@ -49,13 +49,15 @@
                 font-weight: bold;
 
                 span.username {
-                    flex-grow: 1;
-                    flex-shrink: 1;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    cursor: pointer;
                 }
 
                 span.time {
                     flex-grow: 0;
                     flex-shrink: 0;
+                    cursor: pointer;
                 }
             }
 

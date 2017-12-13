@@ -4,8 +4,9 @@
 <aside *ngIf="chatEnabled && chatMessages">
     <mat-card *ngFor="let msg of chatMessages">
         <div class="infobar">
-            <span class="username">{{ msg.content.user.name }}</span>
-            <span class="time">{{ getMessageTimeOffset(msg.timestamp) }}</span>
+            <span class="username" (click)="electron.openProfile(msg.content.user.id)">{{ msg.content.user.name }}</span>
+            <div style="flex: 1 1 auto;"></div>
+            <span class="time" (click)="goToTime(getMessageTimeOffset(msg.timestamp))">{{ getMessageTimeOffset(msg.timestamp) | duration }}</span>
         </div>
         <span class="message">{{ msg.content.content }}</span>
     </mat-card>

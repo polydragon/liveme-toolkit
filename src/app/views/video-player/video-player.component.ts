@@ -65,4 +65,8 @@ export class VideoPlayerComponent implements OnInit {
     getMessageTimeOffset(time) {
         return Math.floor((time / 1000) - this.startTime) * 1000;
     }
+
+    goToTime(time) {
+        this.video.currentTime = time / 1000;
+    }
 }
