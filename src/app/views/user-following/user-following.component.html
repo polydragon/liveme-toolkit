@@ -1,0 +1,25 @@
+<input type="filter" [(ngModel)]="filter" placeholder="Filter users">
+<main>
+    <div class="cardList" *ngIf="following">
+        <mat-card *ngFor="let follow of following" [hidden]="filter && !follow.uname.toLowerCase().startsWith(filter.toLowerCase())">
+            <mat-icon *ngIf="electron.isFavourite(follow.uid)" class="overlay" color="primary">favorite</mat-icon>
+            <mat-icon *ngIf="electron.isLiked(follow.uid)" class="overlay" color="primary">thumb_up</mat-icon>
+            <aside>
+                <img [class.female]="follow.sex == 0" [class.male]="follow.sex == 1" src="{{ follow.face }}">
+                <div class="name">
+                    <span>{{ follow.uname }}</span>
+                    <small *ngIf="electron.lastViewed(follow.uid) != -1">last viewed {{ electron.lastViewed(follow.uid) | amTimeAgo }}</small>
+                </div>
+            </aside>
+            <main>
+                <button mat-button (click)="electron.openProfile(follow.uid)">Replays</button>
+                <button mat-button (click)="electron.openFollowingWindow(follow.uid, follow.uname)">Following</button>
+                <button mat-button (click)="electron.openFansWindow(follow.uid, follow.uname)">Fans</button>
+            </main>
+        </mat-card>
+    </div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <div class="loading" *ngIf="!following">
+        <mat-spinner></mat-spinner>
+    </div>
+</main>

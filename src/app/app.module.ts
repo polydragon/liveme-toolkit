@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { ElectronService } from './services/electron.service';
 import { UserComponent } from './views/user/user.component';
 import { VideoPlayerComponent } from './views/video-player/video-player.component';
-import { UserFollowersComponent } from './views/user-followers/user-followers.component';
+import { UserFollowingComponent } from './views/user-following/user-following.component';
 import { UserFansComponent } from './views/user-fans/user-fans.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LiveMeService } from './services/live-me.service';
@@ -30,7 +30,7 @@ import { DownloadService } from './services/download.service';
         AppComponent,
         UserComponent,
         VideoPlayerComponent,
-        UserFollowersComponent,
+        UserFollowingComponent,
         UserFansComponent,
         DurationPipe,
         ToolbarComponent,

@@ -7,12 +7,12 @@ import { User } from '../../models';
 import { ElectronService } from '../../services/electron.service';
 
 @Component({
-    selector: 'lmt-user-followers',
-    templateUrl: './user-followers.component.html',
-    styleUrls: ['./user-followers.component.scss']
+    selector: 'lmt-user-following',
+    templateUrl: './user-following.component.html',
+    styleUrls: ['./user-following.component.scss']
 })
-export class UserFollowersComponent implements OnInit {
-    followers: User[];
+export class UserFollowingComponent implements OnInit {
+    following: User[];
     filter: string;
     error: string;
 
@@ -27,10 +27,10 @@ export class UserFollowersComponent implements OnInit {
         this.route.params.subscribe(params => {
             let id = params['id'];
 
-            this.liveme.getFollowing(id).then((followers) => {
-                this.followers = followers;
+            this.liveme.getFollowing(id).then((f) => {
+                this.following = f;
 
-                if (this.followers.length == 0) {
+                if (this.following.length == 0) {
                     this.error = 'This user is not following anyone';
                 }
             })
