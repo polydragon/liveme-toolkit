@@ -341,12 +341,15 @@ export class DownloadService {
         if (!this.electron.settings.get('download.useTemplate')) {
             finalPath = defaultPath;
         } else {
+            let date = new Date(this.ACTIVE.videotime * 1000);
+
             let finalName = this.electron.settings.get('download.template')
                 .replace(/%%username%%/ig, this.ACTIVE.username)
                 .replace(/%%userid%%/ig, this.ACTIVE.userid)
                 .replace(/%%videoid%%/ig, this.ACTIVE.videoid)
                 .replace(/%%videotitle%%/ig, this.ACTIVE.videotitle)
-                .replace(/%%videotime%%/ig, '' + this.ACTIVE.videotime);
+                .replace(/%%videodate%%/ig, date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay())
+                .replace(/%%videotime%%/ig, date.getHours() + '-' + date.getSeconds());
 
             if (!finalName || finalName.length == 0) {
                 finalPath = defaultPath;
